@@ -29,7 +29,7 @@ public class CustomerControllerTest {
 
     @Test
     void testGetShouldReturnCustomer() throws Exception {
-        Mockito.when(customerService.findByCpf(Mockito.anyString())).thenReturn(new CustomerGetResponseData());
+        Mockito.when(customerService.findByCpf(Mockito.anyString())).thenReturn(CustomerGetResponseData.builder().build());
 
         this.mockMvc.perform(get("/customers/123"))
                 .andExpect(status().isOk());
@@ -45,7 +45,7 @@ public class CustomerControllerTest {
 
     @Test
     void testPostShouldReturnCustomerId() throws Exception {
-        CustomerCreateResponseData response = new CustomerCreateResponseData();
+        CustomerCreateResponseData response = CustomerCreateResponseData.builder().build();
         Mockito.when(customerService.create(Mockito.any())).thenReturn(response);
 
         this.mockMvc.perform(

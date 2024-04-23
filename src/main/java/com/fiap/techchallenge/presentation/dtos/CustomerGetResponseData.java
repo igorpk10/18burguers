@@ -1,11 +1,13 @@
 package com.fiap.techchallenge.presentation.dtos;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CustomerGetResponseData {
-    public int id;
-    public String cpf;
-    public String name;
-    public String email;
+    private int id;
+    private String cpf;
+    private String name;
+    private String email;
 }

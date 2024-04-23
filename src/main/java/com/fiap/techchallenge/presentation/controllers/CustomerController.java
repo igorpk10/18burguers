@@ -21,7 +21,7 @@ public class CustomerController {
     public ResponseEntity<CustomerCreateResponseData> create(@RequestBody CustomerCreateRequestData request) {
         CustomerCreateResponseData response = customerService.create(request);
 
-        return ResponseEntity.created(URI.create("/customer/" + 0)).body(response);
+        return ResponseEntity.created(URI.create("/customer/" + response.getId())).body(response);
     }
 
     @GetMapping("/{cpf}")

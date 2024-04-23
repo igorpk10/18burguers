@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CustomerCreateRequestData {
-    public String cpf;
-    public String name;
-    public String email;
+    private String cpf;
+    private String name;
+    private String email;
 }

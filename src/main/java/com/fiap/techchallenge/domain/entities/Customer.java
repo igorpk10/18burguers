@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class Customer {
-    public String cpf;
-    public String name;
-    public String email;
+    private int id;
+    private String cpf;
+    private String name;
+    private String email;
 }
