@@ -1,7 +1,9 @@
 package com.fiap.techchallenge.infrastructure.repositories;
 
 import com.fiap.techchallenge.domain.entities.Customer;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SpringDataPostgresCustomerRepository extends CrudRepository<Customer, Integer>{
+@Repository
+public interface SpringDataPostgresCustomerRepository extends JpaRepository<Customer, Integer> {
 }
