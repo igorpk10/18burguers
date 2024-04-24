@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.presentation.dtos;
+package com.fiap.techchallenge.userinterface.dtos;
 
 import lombok.Builder;
 import lombok.Data;

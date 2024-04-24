@@ -1,8 +1,8 @@
-package com.fiap.techchallenge.presentation.controllers;
+package com.fiap.techchallenge.userinterface.controllers;
 
+import com.fiap.techchallenge.application.exceptions.CustomerConflictException;
 import com.fiap.techchallenge.application.ports.services.ICustomerService;
-import com.fiap.techchallenge.presentation.dtos.CustomerCreateResponseData;
-import com.fiap.techchallenge.presentation.dtos.CustomerGetResponseData;
+import com.fiap.techchallenge.userinterface.dtos.CustomerCreateResponseData;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +28,6 @@ public class CustomerControllerTest {
     private ICustomerService customerService;
 
     @Test
-    void testGetShouldReturnCustomer() throws Exception {
-        Mockito.when(customerService.findByCpf(Mockito.anyString())).thenReturn(CustomerGetResponseData.builder().build());
-
-        this.mockMvc.perform(get("/customers/123"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void testGetShouldReturnNotFound() throws Exception {
-        Mockito.when(customerService.findByCpf(Mockito.anyString())).thenReturn(null);
-
-        this.mockMvc.perform(get("/customers/123"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
     void testPostShouldReturnCustomerId() throws Exception {
         CustomerCreateResponseData response = CustomerCreateResponseData.builder().build();
         Mockito.when(customerService.create(Mockito.any())).thenReturn(response);
@@ -54,5 +38,17 @@ public class CustomerControllerTest {
                         .content("{}")
                 )
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void testPostShouldReturnConflict() throws Exception {
+        Mockito.when(customerService.create(Mockito.any())).thenThrow(CustomerConflictException.class);
+
+        this.mockMvc.perform(
+                        post("/customers")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{}")
+                )
+                .andExpect(status().isConflict());
     }
 }
