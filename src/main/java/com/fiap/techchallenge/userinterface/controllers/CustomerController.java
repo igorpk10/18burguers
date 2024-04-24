@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@Controller
+@RestController
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
