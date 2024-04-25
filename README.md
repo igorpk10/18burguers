@@ -1,8 +1,9 @@
 # Tech Challenge Fiap - Fase 1
 
-- [Tech Challenge Fiap - Fase 1](tech-challeng-fiap-fase-1)
-  - [Arquitetura](arquitetura)
-  - [Estrutura de pastas](estrutura-de-pastas)
+- [Tech Challenge Fiap - Fase 1](#tech-challenge-fiap---fase-1)
+  - [Como rodar?](#como-rodar)
+  - [Arquitetura](#arquitetura)
+  - [Estrutura de pastas](#estrutura-de-pastas)
 
 ## Como rodar?
 
