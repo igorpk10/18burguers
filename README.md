@@ -15,7 +15,7 @@ docker compose up -d
 
 Após ter rodado o comando acima, será possível acessar o Swagger por meio do endpoint:
 
-https://localhost:8080/swagger-api/index.html
+http://localhost:8080/swagger-ui/index.html
 
 ## Arquitetura
 
