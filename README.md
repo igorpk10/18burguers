@@ -1,4 +1,31 @@
-# 18burguers
-Sistema de lanchonete para o tech challenge da Pós Tech FIAP + Alura
+# 18 Burguers
 
-# Colaboradores
+# Dependências
+- Java 17
+- Maven 3.6.3+
+
+
+## Instalar dependências
+```
+mvn clean install
+```
+
+## Construir o Projeto
+```
+mvn clean package
+```
+
+## Executar Aplicação
+```
+mvn spring-boot:run
+```
+
+## Construir infraestrutura
+```
+docker-compose up -d 
+```
+
+## Executar Testes
+```
+mvn test
+```
