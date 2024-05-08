@@ -1,31 +1,44 @@
-# 18 Burguers
+# Tech Challenge Fiap - Fase 1
 
-# Dependências
-- Java 17
-- Maven 3.6.3+
+- [Tech Challenge Fiap - Fase 1](#tech-challenge-fiap---fase-1)
+    - [Como rodar?](#como-rodar)
+    - [Arquitetura](#arquitetura)
+    - [Estrutura de pastas](#estrutura-de-pastas)
 
+## Como rodar?
 
-## Instalar dependências
-```
-mvn clean install
-```
+Para rodar, basta ter o Docker instalado em sua máquina e rodar o seguinte comando:
 
-## Construir o Projeto
-```
-mvn clean package
+```shell
+docker compose up -d
 ```
 
-## Executar Aplicação
-```
-mvn spring-boot:run
-```
+Após ter rodado o comando acima, será possível acessar o Swagger por meio do endpoint:
 
-## Construir infraestrutura
-```
-docker-compose up -d 
-```
+http://localhost:8080/swagger-ui/index.html
 
-## Executar Testes
+## Arquitetura
+
+Para desenvolvimento do projeto, foi utilizado a Arquitetura Hexagonal.
+
+![Arquitetura Hexagonal](docs/images/hexagonal-arch.png)
+Fonte: https://community.revelo.com.br/o-que-e-arquitetura-de-software/
+
+## Estrutura de pastas
+
 ```
-mvn test
+.
+└── src/
+    ├── application/
+    │   ├── exceptions
+    │   ├── ports
+    │   └── services
+    ├── domain/
+    │   ├── entities
+    │   ├── enums
+    │   └── valueobjects
+    ├── infrastructure/
+    │   └── repositories
+    └── userinterface/
+        └── controllers
 ```
