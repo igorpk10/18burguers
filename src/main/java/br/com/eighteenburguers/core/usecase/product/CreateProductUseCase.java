@@ -2,9 +2,9 @@ package br.com.eighteenburguers.core.usecase.product;
 
 import br.com.eighteenburguers.core.domain.Product;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.CreateProductInputPort;
-import br.com.eighteenburguers.core.ports.outbound.CreateProductOutputPort;
-import br.com.eighteenburguers.core.ports.outbound.FindProductByIdOutputPort;
+import br.com.eighteenburguers.core.ports.inbound.product.CreateProductInputPort;
+import br.com.eighteenburguers.core.ports.outbound.product.CreateProductOutputPort;
+import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutputPort;
 import br.com.eighteenburguers.core.usecase.product.exceptions.ProductAlreadyExistsException;
 
 import java.util.Optional;

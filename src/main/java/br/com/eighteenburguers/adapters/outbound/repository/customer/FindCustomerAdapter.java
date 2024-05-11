@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import br.com.eighteenburguers.core.domain.Customer;
-import br.com.eighteenburguers.core.ports.outbound.FindCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerAdapterPort;
 import lombok.AllArgsConstructor;
 
 @Component

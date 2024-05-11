@@ -2,7 +2,7 @@ package br.com.eighteenburguers.adapters.outbound.repository.customer;
 
 import org.springframework.stereotype.Component;
 import br.com.eighteenburguers.core.domain.Customer;
-import br.com.eighteenburguers.core.ports.outbound.SaveCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
 import lombok.AllArgsConstructor;
 
 @Component
