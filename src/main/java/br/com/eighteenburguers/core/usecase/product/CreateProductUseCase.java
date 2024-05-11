@@ -5,6 +5,7 @@ import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.CreateProductInputPort;
 import br.com.eighteenburguers.core.ports.outbound.CreateProductOutputPort;
 import br.com.eighteenburguers.core.ports.outbound.FindProductByIdOutputPort;
+import br.com.eighteenburguers.core.usecase.product.exceptions.ProductAlreadyExistsException;
 
 import java.util.Optional;
 

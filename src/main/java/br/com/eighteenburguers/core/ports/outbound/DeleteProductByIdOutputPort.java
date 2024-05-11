@@ -1,6 +1,8 @@
 package br.com.eighteenburguers.core.ports.outbound;
 
+import br.com.eighteenburguers.core.domain.Product;
+
 public interface DeleteProductByIdOutputPort {
 
-    void delete(Long id);
+    Product delete(Long id);
 }

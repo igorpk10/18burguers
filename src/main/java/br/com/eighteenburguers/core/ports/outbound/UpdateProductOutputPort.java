@@ -4,5 +4,5 @@ import br.com.eighteenburguers.core.domain.Product;
 
 public interface UpdateProductOutputPort {
 
-    void update(Product product);
+    Product update(Product product);
 }
