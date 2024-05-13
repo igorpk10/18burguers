@@ -1,18 +1,32 @@
-version: '3'
+version: '3.9'
 
 services:
-  postgres:
-    image: 'postgres:latest'
-    container_name: postgres
-    environment:
-      - 'POSTGRES_DB=18burguers'
-      - 'POSTGRES_USER=root' 
-      - 'POSTGRES_PASSWORD=123456'
+  db:
+    image: postgres:16
     networks:
-      - 18burguers
+      - redeburguers
+    environment:
+      POSTGRES_USER: fiap
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: 18burguers
     ports:
-      - '5432:5432'
-    
+      - "5432:5432"
+    volumes:
+      - ./scripts/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+
+  app:
+    links:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - redeburguers
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
 networks:
-  18burguers:
+  redeburguers:
     driver: bridge
