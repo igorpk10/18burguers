@@ -6,15 +6,15 @@ COPY pom.xml .
 
 RUN mvn dependency:go-offline
 
-RUN adduser --disabled-password --gecos '' appuser
-
-USER appuser
-
 COPY src ./src
 
 RUN mvn package
 
 FROM openjdk:17-slim
+
+RUN adduser --disabled-password --gecos '' appuser
+
+USER appuser
 
 WORKDIR /app
 
