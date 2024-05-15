@@ -6,9 +6,9 @@ services:
     networks:
       - redeburguers
     environment:
-      POSTGRES_USER: fiap
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: 18burguers
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB}
     ports:
       - "5432:5432"
     volumes:
@@ -17,6 +17,10 @@ services:
   app:
     links:
       - db
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB: ${DB_URL}
     build:
       context: .
       dockerfile: Dockerfile
