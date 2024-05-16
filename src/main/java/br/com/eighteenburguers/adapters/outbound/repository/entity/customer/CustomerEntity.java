@@ -1,4 +1,4 @@
-package br.com.eighteenburguers.adapters.outbound.repository.customer;
+package br.com.eighteenburguers.adapters.outbound.repository.entity.customer;
 
 import java.time.Instant;
 

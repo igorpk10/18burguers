@@ -1,4 +1,4 @@
-package br.com.eighteenburguers.core.ports.outbound;
+package br.com.eighteenburguers.core.ports.outbound.customer;
 
 import java.util.Optional;
 

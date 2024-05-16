@@ -13,9 +13,9 @@ import br.com.eighteenburguers.adapters.inbound.controller.request.CustomerReque
 import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.FindCustomerAdapterPort;
-import br.com.eighteenburguers.core.ports.outbound.SaveCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
 import br.com.eighteenburguers.core.usecase.customer.CreateCustomerUseCase;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

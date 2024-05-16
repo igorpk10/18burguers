@@ -1,9 +1,10 @@
-package br.com.eighteenburguers.adapters.outbound.repository.customer;
+package br.com.eighteenburguers.adapters.outbound.repository.mapper;
 
 import static org.mapstruct.InjectionStrategy.CONSTRUCTOR;
 import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
+import br.com.eighteenburguers.adapters.outbound.repository.entity.customer.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

@@ -1,4 +1,4 @@
-package br.com.eighteenburguers.core.ports.outbound;
+package br.com.eighteenburguers.core.ports.outbound.customer;
 
 import br.com.eighteenburguers.core.domain.Customer;
 
