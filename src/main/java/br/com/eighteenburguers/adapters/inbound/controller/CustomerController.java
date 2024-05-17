@@ -1,11 +1,17 @@
 package br.com.eighteenburguers.adapters.inbound.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.eighteenburguers.adapters.inbound.controller.mappers.CustomerMapper;
@@ -14,25 +20,23 @@ import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorRespons
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerAdapterPort;
-import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
-import br.com.eighteenburguers.core.usecase.customer.CreateCustomerUseCase;
+import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerUseCasePort;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping("/customers")
-public class CreateCustomerController {
+public class CustomerController {
 
-    private final CreateCustomerUseCasePort createCustomerUseCasePort;
-    private final CustomerMapper mapper;
+    @Autowired
+    private CreateCustomerUseCasePort createCustomerUseCasePort;
 
-    public CreateCustomerController(FindCustomerAdapterPort findCustomerAdapterPort,
-            SaveCustomerAdapterPort saveCustomerAdapterPort, CustomerMapper mapper) {
-        this.createCustomerUseCasePort = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
-        this.mapper = mapper;
-    }
+    @Autowired
+    private FindCustomerUseCasePort findCustomerUseCasePort;
+
+    @Autowired
+    private CustomerMapper mapper;
 
     @PostMapping
     @Transactional
@@ -43,6 +47,21 @@ public class CreateCustomerController {
         } catch (BusinessException e) {
             log.error("Error when trying to create customer: {}: {}", e.getCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponses(e));
+        }
+    }
+
+    @GetMapping("search/{cpf}")
+    public ResponseEntity<?> search(@PathVariable("cpf") @Valid String cpf) {
+        try {
+            var customer = findCustomerUseCasePort.execute(cpf);
+
+            if (customer != null) {
+                return ResponseEntity.status(HttpStatus.FOUND).body(mapper.toResponse(customer));
+            }
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 }

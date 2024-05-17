@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS customers;
-CREATE TABLE customers (
+CREATE TABLE IF NOT EXISTS customers (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     cpf VARCHAR(255),
