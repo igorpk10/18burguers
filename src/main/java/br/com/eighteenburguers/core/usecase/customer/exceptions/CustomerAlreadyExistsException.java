@@ -1,4 +1,4 @@
-package br.com.eighteenburguers.core.usecase.customer;
+package br.com.eighteenburguers.core.usecase.customer.exceptions;
 
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 

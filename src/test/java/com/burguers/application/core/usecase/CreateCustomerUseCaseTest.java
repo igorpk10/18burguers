@@ -8,8 +8,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -25,18 +23,18 @@ import br.com.eighteenburguers.core.domain.Document;
 import br.com.eighteenburguers.core.domain.DocumentType;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindByFederalIdCustomerAdapterPort;
 import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
 import br.com.eighteenburguers.core.usecase.customer.CreateCustomerUseCase;
-import br.com.eighteenburguers.core.usecase.customer.CustomerAlreadyExistsException;
+import br.com.eighteenburguers.core.usecase.customer.exceptions.CustomerAlreadyExistsException;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class CreateCustomerUseCaseTest {
-    
+
     @Mock
-    FindCustomerAdapterPort findCustomerAdapterPort;
-    
+    FindByFederalIdCustomerAdapterPort findCustomerAdapterPort;
+
     @Mock
     SaveCustomerAdapterPort saveCustomerAdapterPort;
 
@@ -49,10 +47,11 @@ class CreateCustomerUseCaseTest {
 
     @Test
     void shouldBeAbleToCreateANewCustomer() throws BusinessException {
-        Document document = new Document(DocumentType.CPF,"80632725010");
-        Customer customer = new Customer(document, faker.name().fullName() , faker.internet().emailAddress());
+        var documentNumber = "80632725010";
+        Document document = new Document(DocumentType.CPF, documentNumber);
+        Customer customer = new Customer(document, faker.name().fullName(), faker.internet().emailAddress());
 
-        when(findCustomerAdapterPort.findByDocumentNumber(anyString())).thenReturn(Optional.empty());
+        when(findCustomerAdapterPort.findByDocumentNumber(anyString())).thenReturn(null);
         when(saveCustomerAdapterPort.save(any())).thenReturn(customer);
 
         CreateCustomerUseCasePort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
@@ -66,11 +65,13 @@ class CreateCustomerUseCaseTest {
 
     @Test
     void shouldBeNotAbleToCreateANewCustomerBecauseAlredyExists() {
+        var documentNumber = "80632725010";
+        Document document = new Document(DocumentType.CPF, documentNumber);
+        Customer customer = new Customer(document, faker.name().fullName(), faker.internet().emailAddress());
 
-        Document document = new Document(DocumentType.CPF,"80632725010");
-        Customer customer = new Customer(document, faker.name().fullName() , faker.internet().emailAddress());
-
-        when(findCustomerAdapterPort.findByDocumentNumber(anyString())).thenReturn(Optional.of(customer));
+        when(findCustomerAdapterPort.findByDocumentNumber(anyString())).thenReturn(new Customer(
+            new Document(null, documentNumber), null, null
+        ));
 
         CreateCustomerUseCasePort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
         assertThrows(CustomerAlreadyExistsException.class, () -> usecase.execute(customer));
