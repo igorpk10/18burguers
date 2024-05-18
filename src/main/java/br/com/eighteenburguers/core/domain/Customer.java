@@ -2,7 +2,7 @@ package br.com.eighteenburguers.core.domain;
 
 public class Customer {
     
-    private Long id;
+    private String id;
     private final Document document;
     private final String name;
     private String email;
@@ -13,7 +13,7 @@ public class Customer {
         this.email = email;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -21,7 +21,7 @@ public class Customer {
         this.email = email;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

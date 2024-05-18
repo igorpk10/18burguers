@@ -1,5 +1,6 @@
 package br.com.eighteenburguers.adapters.inbound.controller;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
@@ -50,13 +51,13 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("search/{cpf}")
-    public ResponseEntity<?> search(@PathVariable("cpf") @Valid String cpf) {
+    @GetMapping("/search")
+    public ResponseEntity<?> search(@RequestParam("cpf") @CPF String cpf) {
         try {
             var customer = findCustomerUseCasePort.execute(cpf);
 
             if (customer != null) {
-                return ResponseEntity.status(HttpStatus.FOUND).body(mapper.toResponse(customer));
+                return ResponseEntity.ok(mapper.toResponse(customer));
             }
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

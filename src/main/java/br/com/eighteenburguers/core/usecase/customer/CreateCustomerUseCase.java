@@ -29,7 +29,7 @@ public class CreateCustomerUseCase implements CreateCustomerUseCasePort {
             throw new CustomerAlreadyExistsException();
         }
 
-        return saveCustomerAdapterPort.save(createdCustomer);
+        return saveCustomerAdapterPort.save(customer);
     }
 
 }
