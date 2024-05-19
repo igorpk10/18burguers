@@ -4,5 +4,5 @@ import br.com.eighteenburguers.core.domain.Product;
 
 public interface DeleteProductByIdOutputPort {
 
-    Product delete(Long id);
+    void delete(Long id);
 }

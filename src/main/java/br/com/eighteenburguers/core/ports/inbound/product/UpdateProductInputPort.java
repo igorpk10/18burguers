@@ -5,5 +5,5 @@ import br.com.eighteenburguers.core.exceptions.BusinessException;
 
 public interface UpdateProductInputPort {
 
-    Product update(Product product) throws BusinessException;
+    void update(Product product) throws BusinessException;
 }

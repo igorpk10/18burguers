@@ -22,13 +22,13 @@ public class DeleteProductByIdUseCase implements DeleteProductByIdInputPort {
     }
 
     @Override
-    public Product delete(Long id) throws BusinessException {
+    public void delete(Long id) throws BusinessException {
         Product createdProduct = findProductByIdOutputPort.find(id);
 
         if (Objects.nonNull(createdProduct)) {
             throw new ProductNotExistsException();
         }
 
-        return deleteProductByIdOutputPort.delete(id);
+        deleteProductByIdOutputPort.delete(id);
     }
 }
