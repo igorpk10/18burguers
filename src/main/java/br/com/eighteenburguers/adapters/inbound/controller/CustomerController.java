@@ -1,26 +1,23 @@
 package br.com.eighteenburguers.adapters.inbound.controller;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.eighteenburguers.adapters.inbound.controller.mappers.CustomerMapper;
 import br.com.eighteenburguers.adapters.inbound.controller.request.CustomerRequest;
 import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerUseCasePort;
+import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerInputPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerInputPort;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,10 +29,10 @@ import java.util.Objects;
 public class CustomerController {
 
     @Autowired
-    private CreateCustomerUseCasePort createCustomerUseCasePort;
+    private CreateCustomerInputPort createCustomerUseCasePort;
 
     @Autowired
-    private FindCustomerUseCasePort findCustomerUseCasePort;
+    private FindCustomerInputPort findCustomerUseCasePort;
 
     @Autowired
     private CustomerMapper mapper;
@@ -56,7 +53,6 @@ public class CustomerController {
     public ResponseEntity<?> search(@PathVariable("cpf") @Valid String cpf) {
         try {
             var customer = findCustomerUseCasePort.execute(cpf);
-
             if (Objects.nonNull(customer)) {
                 return ResponseEntity.status(HttpStatus.FOUND).body(mapper.toResponse(customer));
             }

@@ -1,6 +1,7 @@
 package br.com.eighteenburguers.adapters.outbound.repository.entity.customer;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,8 +17,8 @@ import lombok.Data;
 public class CustomerEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     private String name;
 

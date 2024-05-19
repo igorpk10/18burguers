@@ -8,7 +8,6 @@ import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutput
 import br.com.eighteenburguers.core.usecase.product.exceptions.ProductAlreadyExistsException;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class CreateProductUseCase implements CreateProductInputPort {
 
@@ -16,7 +15,10 @@ public class CreateProductUseCase implements CreateProductInputPort {
 
     private final CreateProductOutputPort createProductOutputPort;
 
-    public CreateProductUseCase(FindProductByIdOutputPort findProductByIdOutputPort, CreateProductOutputPort createProductOutputPort) {
+    public CreateProductUseCase(
+        FindProductByIdOutputPort findProductByIdOutputPort, 
+        CreateProductOutputPort createProductOutputPort) {
+            
         this.findProductByIdOutputPort = findProductByIdOutputPort;
         this.createProductOutputPort = createProductOutputPort;
     }
