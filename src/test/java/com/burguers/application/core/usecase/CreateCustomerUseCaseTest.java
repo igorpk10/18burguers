@@ -7,7 +7,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -15,16 +14,14 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import com.github.javafaker.Faker;
-
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.domain.Document;
 import br.com.eighteenburguers.core.domain.DocumentType;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.customer.FindByFederalIdCustomerAdapterPort;
-import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerInputPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerByFederalIdOutputPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerOutputPort;
 import br.com.eighteenburguers.core.usecase.customer.CreateCustomerUseCase;
 import br.com.eighteenburguers.core.usecase.customer.exceptions.CustomerAlreadyExistsException;
 
@@ -33,10 +30,10 @@ import br.com.eighteenburguers.core.usecase.customer.exceptions.CustomerAlreadyE
 class CreateCustomerUseCaseTest {
 
     @Mock
-    FindByFederalIdCustomerAdapterPort findCustomerAdapterPort;
+    FindCustomerByFederalIdOutputPort findCustomerAdapterPort;
 
     @Mock
-    SaveCustomerAdapterPort saveCustomerAdapterPort;
+    SaveCustomerOutputPort saveCustomerAdapterPort;
 
     Faker faker;
 
@@ -54,7 +51,7 @@ class CreateCustomerUseCaseTest {
         when(findCustomerAdapterPort.findByDocumentNumber(anyString())).thenReturn(null);
         when(saveCustomerAdapterPort.save(any())).thenReturn(customer);
 
-        CreateCustomerUseCasePort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
+        CreateCustomerInputPort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
         Customer response = usecase.execute(customer);
 
         assertNotNull(response);
@@ -73,7 +70,7 @@ class CreateCustomerUseCaseTest {
             new Document(null, documentNumber), null, null
         ));
 
-        CreateCustomerUseCasePort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
+        CreateCustomerInputPort usecase = new CreateCustomerUseCase(findCustomerAdapterPort, saveCustomerAdapterPort);
         assertThrows(CustomerAlreadyExistsException.class, () -> usecase.execute(customer));
 
         verify(findCustomerAdapterPort, times(1)).findByDocumentNumber(anyString());

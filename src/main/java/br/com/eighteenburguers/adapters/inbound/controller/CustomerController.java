@@ -16,8 +16,8 @@ import br.com.eighteenburguers.adapters.inbound.controller.request.CustomerReque
 import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerUseCasePort;
+import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerInputPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerInputPort;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,10 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomerController {
 
     @Autowired
-    private CreateCustomerUseCasePort createCustomerUseCasePort;
+    private CreateCustomerInputPort createCustomerUseCasePort;
 
     @Autowired
-    private FindCustomerUseCasePort findCustomerUseCasePort;
+    private FindCustomerInputPort findCustomerUseCasePort;
 
     @Autowired
     private CustomerMapper mapper;

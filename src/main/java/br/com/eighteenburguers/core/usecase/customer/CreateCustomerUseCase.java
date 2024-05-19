@@ -2,18 +2,18 @@ package br.com.eighteenburguers.core.usecase.customer;
 
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.customer.FindByFederalIdCustomerAdapterPort;
-import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerInputPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerByFederalIdOutputPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.SaveCustomerOutputPort;
 import br.com.eighteenburguers.core.usecase.customer.exceptions.CustomerAlreadyExistsException;
 
-public class CreateCustomerUseCase implements CreateCustomerUseCasePort {
+public class CreateCustomerUseCase implements CreateCustomerInputPort {
 
-    private final FindByFederalIdCustomerAdapterPort findCustomerAdapterPort;
-    private final SaveCustomerAdapterPort saveCustomerAdapterPort;
+    private final FindCustomerByFederalIdOutputPort findCustomerAdapterPort;
+    private final SaveCustomerOutputPort saveCustomerAdapterPort;
 
-    public CreateCustomerUseCase(FindByFederalIdCustomerAdapterPort findCustomerAdapterPort,
-            SaveCustomerAdapterPort saveCustomerAdapterPort) {
+    public CreateCustomerUseCase(FindCustomerByFederalIdOutputPort findCustomerAdapterPort,
+            SaveCustomerOutputPort saveCustomerAdapterPort) {
             this.findCustomerAdapterPort = findCustomerAdapterPort;
             this.saveCustomerAdapterPort = saveCustomerAdapterPort; 
     }

@@ -2,15 +2,15 @@ package br.com.eighteenburguers.core.usecase.customer;
 
 import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerUseCasePort;
-import br.com.eighteenburguers.core.ports.outbound.customer.FindByFederalIdCustomerAdapterPort;
+import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerInputPort;
+import br.com.eighteenburguers.core.ports.outbound.customer.FindCustomerByFederalIdOutputPort;
 import br.com.eighteenburguers.core.usecase.customer.exceptions.CustomerNotFound;
 
-public class FindCustomerUseCase implements FindCustomerUseCasePort {
+public class FindCustomerUseCase implements FindCustomerInputPort {
 
-    private FindByFederalIdCustomerAdapterPort findByFederalIdCustomerAdapterPort;
+    private FindCustomerByFederalIdOutputPort findByFederalIdCustomerAdapterPort;
 
-    public FindCustomerUseCase(FindByFederalIdCustomerAdapterPort findByFederalIdCustomerAdapterPort){
+    public FindCustomerUseCase(FindCustomerByFederalIdOutputPort findByFederalIdCustomerAdapterPort){
         this.findByFederalIdCustomerAdapterPort = findByFederalIdCustomerAdapterPort;
     }
 
