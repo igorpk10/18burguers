@@ -7,6 +7,7 @@ import br.com.eighteenburguers.core.ports.outbound.product.DeleteProductByIdOutp
 import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutputPort;
 import br.com.eighteenburguers.core.usecase.product.exceptions.ProductNotExistsException;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class DeleteProductByIdUseCase implements DeleteProductByIdInputPort {
@@ -22,9 +23,9 @@ public class DeleteProductByIdUseCase implements DeleteProductByIdInputPort {
 
     @Override
     public Product delete(Long id) throws BusinessException {
-        Optional<Product> optional = findProductByIdOutputPort.find(id);
+        Product createdProduct = findProductByIdOutputPort.find(id);
 
-        if (optional.isPresent()) {
+        if (Objects.nonNull(createdProduct)) {
             throw new ProductNotExistsException();
         }
 

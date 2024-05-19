@@ -2,7 +2,7 @@ package br.com.eighteenburguers.core.domain;
 
 import br.com.eighteenburguers.core.enums.CategoryEnum;
 
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
 
 public class Product {
@@ -11,9 +11,9 @@ public class Product {
     private CategoryEnum categoryEnum;
     private BigDecimal price;
     private String description;
-    private BufferedImage image;
+    private File image;
 
-    public Product(String name, CategoryEnum categoryEnum, BigDecimal price, String description, BufferedImage image) {
+    public Product(String name, CategoryEnum categoryEnum, BigDecimal price, String description, File image) {
         this.name = name;
         this.categoryEnum = categoryEnum;
         this.price = price;
@@ -55,11 +55,11 @@ public class Product {
         this.description = description;
     }
 
-    public BufferedImage getImage() {
+    public File getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
+    public void setImage(File image) {
         this.image = image;
     }
 }

@@ -24,6 +24,8 @@ import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerUseCasePo
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 @Slf4j
 @RestController
 @RequestMapping("/customers")
@@ -55,7 +57,7 @@ public class CustomerController {
         try {
             var customer = findCustomerUseCasePort.execute(cpf);
 
-            if (customer != null) {
+            if (Objects.nonNull(customer)) {
                 return ResponseEntity.status(HttpStatus.FOUND).body(mapper.toResponse(customer));
             }
 

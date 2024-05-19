@@ -21,7 +21,6 @@ public class FindCustomerAdapter implements FindByFederalIdCustomerAdapterPort {
     @Override
     public Customer findByDocumentNumber(String documentNumber) {
         Optional<CustomerEntity> optional = repository.findByDocumentNumber(documentNumber);
-        if(optional.isEmpty()) return null;
-        return mapper.toCustomer(optional.get());
+        return optional.map(mapper::toCustomer).orElse(null);
     }
 }

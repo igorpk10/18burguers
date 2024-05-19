@@ -64,7 +64,7 @@ class CreateCustomerUseCaseTest {
     }
 
     @Test
-    void shouldBeNotAbleToCreateANewCustomerBecauseAlredyExists() {
+    void shouldBeNotAbleToCreateANewCustomerBecauseAlreadyExists() {
         var documentNumber = "80632725010";
         Document document = new Document(DocumentType.CPF, documentNumber);
         Customer customer = new Customer(document, faker.name().fullName(), faker.internet().emailAddress());
