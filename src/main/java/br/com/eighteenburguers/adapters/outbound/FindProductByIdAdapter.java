@@ -1,7 +1,6 @@
 package br.com.eighteenburguers.adapters.outbound;
 
 import br.com.eighteenburguers.adapters.outbound.repository.ProductRepository;
-import br.com.eighteenburguers.adapters.outbound.repository.entity.customer.CustomerEntity;
 import br.com.eighteenburguers.adapters.outbound.repository.entity.product.ProductEntity;
 import br.com.eighteenburguers.adapters.outbound.repository.mapper.ProductEntityMapper;
 import br.com.eighteenburguers.core.domain.Product;
