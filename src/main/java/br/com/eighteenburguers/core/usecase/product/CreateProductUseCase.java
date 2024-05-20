@@ -7,7 +7,7 @@ import br.com.eighteenburguers.core.ports.outbound.product.CreateProductOutputPo
 import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutputPort;
 import br.com.eighteenburguers.core.usecase.product.exceptions.ProductAlreadyExistsException;
 
-import java.util.Optional;
+import java.util.Objects;
 
 public class CreateProductUseCase implements CreateProductInputPort {
 
@@ -15,16 +15,19 @@ public class CreateProductUseCase implements CreateProductInputPort {
 
     private final CreateProductOutputPort createProductOutputPort;
 
-    public CreateProductUseCase(FindProductByIdOutputPort findProductByIdOutputPort, CreateProductOutputPort createProductOutputPort) {
+    public CreateProductUseCase(
+        FindProductByIdOutputPort findProductByIdOutputPort, 
+        CreateProductOutputPort createProductOutputPort) {
+            
         this.findProductByIdOutputPort = findProductByIdOutputPort;
         this.createProductOutputPort = createProductOutputPort;
     }
 
     @Override
     public Product insert(Product product) throws BusinessException {
-        Optional<Product> optional = findProductByIdOutputPort.find(product.getId());
+        Product createdProduct = findProductByIdOutputPort.find(product.getId());
 
-        if (optional.isPresent()) {
+        if (Objects.nonNull(createdProduct)) {
             throw new ProductAlreadyExistsException();
         }
 

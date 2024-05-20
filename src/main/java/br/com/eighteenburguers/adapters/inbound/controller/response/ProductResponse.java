@@ -1,12 +1,14 @@
 package br.com.eighteenburguers.adapters.inbound.controller.response;
 
 import br.com.eighteenburguers.core.enums.CategoryEnum;
+import lombok.Builder;
 import lombok.Data;
 
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
 
 @Data
+@Builder
 public class ProductResponse {
 
     private String name;
@@ -17,5 +19,5 @@ public class ProductResponse {
 
     private String description;
 
-    private BufferedImage image;
+    private File image;
 }

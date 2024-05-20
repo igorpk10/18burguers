@@ -4,7 +4,7 @@ import br.com.eighteenburguers.core.enums.CategoryEnum;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
 
 @Data
@@ -23,5 +23,5 @@ public class ProductRequest {
     private String description;
 
     @NotBlank
-    private BufferedImage image;
+    private File image;
 }

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CustomerResponse {
     
-    private Long id;
+    private String id;
     private String name;
     private String cpf;
     private String email;

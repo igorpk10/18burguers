@@ -4,12 +4,14 @@ import br.com.eighteenburguers.adapters.outbound.repository.ProductRepository;
 import br.com.eighteenburguers.adapters.outbound.repository.entity.product.ProductEntity;
 import br.com.eighteenburguers.adapters.outbound.repository.mapper.ProductEntityMapper;
 import br.com.eighteenburguers.core.domain.Product;
-import br.com.eighteenburguers.core.ports.outbound.product.CreateProductOutputPort;
+import br.com.eighteenburguers.core.ports.outbound.product.FindProductByCategoryOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class CreateProductAdapter implements CreateProductOutputPort {
+public class FindProductByCategoryAdapter implements FindProductByCategoryOutputPort {
 
     @Autowired
     private ProductRepository productRepository;
@@ -18,9 +20,8 @@ public class CreateProductAdapter implements CreateProductOutputPort {
     private ProductEntityMapper productEntityMapper;
 
     @Override
-    public Product insert(Product product) {
-        ProductEntity entity = productEntityMapper.toEntity(product);
-        productRepository.save(entity);
-        return productEntityMapper.toProduct(entity);
+    public List<Product> find(int codigo) {
+        List<ProductEntity> productList = productRepository.findByCategory(codigo);
+        return (List<Product>) productList.stream().map(productEntityMapper::toProduct);
     }
 }

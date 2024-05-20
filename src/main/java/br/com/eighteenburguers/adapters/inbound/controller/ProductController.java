@@ -6,10 +6,7 @@ import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorRespons
 import br.com.eighteenburguers.adapters.inbound.controller.response.ProductResponse;
 import br.com.eighteenburguers.core.domain.Product;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.product.CreateProductInputPort;
-import br.com.eighteenburguers.core.ports.inbound.product.DeleteProductByIdInputPort;
-import br.com.eighteenburguers.core.ports.inbound.product.FindProductByIdInputPort;
-import br.com.eighteenburguers.core.ports.inbound.product.UpdateProductInputPort;
+import br.com.eighteenburguers.core.ports.inbound.product.*;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -30,6 +29,9 @@ public class ProductController {
 
     @Autowired
     private FindProductByIdInputPort findProductByIdInputPort;
+
+    @Autowired
+    private FindProductByCategoryInputPort findProductByCategoryInputPort;
 
     @Autowired
     private DeleteProductByIdInputPort deleteProductByIdInputPort;
@@ -50,9 +52,26 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> findById(@PathVariable final String id) throws BusinessException {
-        var product = findProductByIdInputPort.find(Long.parseLong(id));
-        return ResponseEntity.ok().body(productMapper.toProductResponse(product));
+    public ResponseEntity<ProductResponse> findById(@PathVariable final String id) {
+        try {
+            Product product = findProductByIdInputPort.find(Long.parseLong(id));
+            return ResponseEntity.ok().body(productMapper.toProductResponse(product));
+        } catch (BusinessException e) {
+            log.error("Error when trying to find product: {}: {}", e.getCode(), e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> findByCategory(@PathVariable final String categoryId) {
+        try {
+            List<Product> productList = findProductByCategoryInputPort.find(Integer.parseInt(categoryId));
+            List<ProductResponse> productResponseList = productList.stream().map(productMapper::toProductResponse).toList();
+            return new ResponseEntity<>(productResponseList, HttpStatus.OK);
+        } catch (BusinessException e) {
+            log.error("Error when trying to find products: {}: {}", e.getCode(), e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/{id}")

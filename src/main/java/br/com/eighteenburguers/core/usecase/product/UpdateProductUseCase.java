@@ -7,6 +7,7 @@ import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutput
 import br.com.eighteenburguers.core.ports.outbound.product.UpdateProductOutputPort;
 import br.com.eighteenburguers.core.usecase.product.exceptions.ProductNotExistsException;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class UpdateProductUseCase implements UpdateProductInputPort {
@@ -21,13 +22,13 @@ public class UpdateProductUseCase implements UpdateProductInputPort {
     }
 
     @Override
-    public Product update(Product product) throws BusinessException {
-        Optional<Product> optional = findProductByIdOutputPort.find(product.getId());
+    public void update(Product product) throws BusinessException {
+        Product createdProduct = findProductByIdOutputPort.find(product.getId());
 
-        if (optional.isPresent()) {
+        if (Objects.nonNull(createdProduct)) {
             throw new ProductNotExistsException();
         }
 
-        return updateProductOutputPort.update(product);
+        updateProductOutputPort.update(product);
     }
 }

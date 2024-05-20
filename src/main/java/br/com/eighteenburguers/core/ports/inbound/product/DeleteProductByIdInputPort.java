@@ -5,5 +5,5 @@ import br.com.eighteenburguers.core.exceptions.BusinessException;
 
 public interface DeleteProductByIdInputPort {
 
-    Product delete(Long id) throws BusinessException;
+    void delete(Long id) throws BusinessException;
 }

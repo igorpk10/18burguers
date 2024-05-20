@@ -18,7 +18,7 @@ public class CustomerRequest {
     
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 55)
+    @Size(min = 4, max = 55)
     private String name;
 
     @CPF
@@ -30,5 +30,4 @@ public class CustomerRequest {
     @NotEmpty
     @NonNull
     private String email;
-    
 }

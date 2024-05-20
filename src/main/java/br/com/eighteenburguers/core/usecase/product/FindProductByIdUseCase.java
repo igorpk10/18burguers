@@ -16,6 +16,6 @@ public class FindProductByIdUseCase implements FindProductByIdInputPort {
 
     @Override
     public Product find(Long id) throws BusinessException {
-        return findProductByIdOutputPort.find(id).orElseThrow(ProductNotExistsException::new);
+        return findProductByIdOutputPort.find(id);
     }
 }
