@@ -23,12 +23,7 @@ public class DeleteProductByIdUseCase implements DeleteProductByIdInputPort {
 
     @Override
     public void delete(Long id) throws BusinessException {
-        Product createdProduct = findProductByIdOutputPort.find(id);
-
-        if (Objects.nonNull(createdProduct)) {
-            throw new ProductNotExistsException();
-        }
-
+        findProductByIdOutputPort.find(id).orElseThrow(ProductNotExistsException::new);
         deleteProductByIdOutputPort.delete(id);
     }
 }

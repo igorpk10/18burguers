@@ -1,6 +1,8 @@
 package br.com.eighteenburguers.core.enums;
 
-public enum CategoryEnum {
+import java.util.stream.Stream;
+
+public enum Category {
 
     LANCHE(1, "Lanche"),
     ACOMPANHAMENTO(2, "Acompanhamento"),
@@ -10,16 +12,21 @@ public enum CategoryEnum {
     private int codigo;
     private String descricao;
 
-    CategoryEnum(int codigo, String descricao) {
+    private Category(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public static Category ofCodigo(Integer code) {
+        return Stream.of(Category.values()).filter(item -> item.getCodigo().equals(code))
+            .findFirst().orElseThrow(IllegalArgumentException::new);
     }
 }

@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface FindProductByIdOutputPort {
 
-    Product find(Long id);
+    Optional<Product> find(Long id);
 }

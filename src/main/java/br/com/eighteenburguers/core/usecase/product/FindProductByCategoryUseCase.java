@@ -21,11 +21,6 @@ public class FindProductByCategoryUseCase implements FindProductByCategoryInputP
     @Override
     public List<Product> find(int codigo) throws BusinessException {
         List<Product> productList = findProductByCategoryOutputPort.find(codigo);
-
-        if(productList.isEmpty()){
-            throw new ProductNotExistsException();
-        }
-
         return productList;
     }
 }

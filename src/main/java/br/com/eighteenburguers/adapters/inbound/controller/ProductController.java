@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,12 +40,13 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> insert(@Valid @RequestBody ProductRequest productRequest) {
         try {
             var product = productMapper.toProduct(productRequest);
-            createProductInputPort.insert(product);
-            return ResponseEntity.status(HttpStatus.CREATED).body(productMapper.toProductResponse(product));
+            log.info("ProductID: {}", product.getId());
+            Product productPersisted = createProductInputPort.insert(product);
+            return ResponseEntity.status(HttpStatus.CREATED).body(productMapper.toProductResponse(productPersisted));
         } catch (BusinessException e) {
             log.error("Error when trying to create product: {}: {}", e.getCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponses(e));
@@ -52,9 +54,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> findById(@PathVariable final String id) {
+    public ResponseEntity<ProductResponse> findById(@PathVariable final Long id) {
         try {
-            Product product = findProductByIdInputPort.find(Long.parseLong(id));
+            Product product = findProductByIdInputPort.find(id);
             return ResponseEntity.ok().body(productMapper.toProductResponse(product));
         } catch (BusinessException e) {
             log.error("Error when trying to find product: {}: {}", e.getCode(), e.getMessage());
@@ -62,7 +64,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ProductResponse>> findByCategory(@PathVariable final String categoryId) {
         try {
             List<Product> productList = findProductByCategoryInputPort.find(Integer.parseInt(categoryId));

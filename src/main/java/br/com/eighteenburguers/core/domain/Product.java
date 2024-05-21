@@ -1,21 +1,22 @@
 package br.com.eighteenburguers.core.domain;
 
-import br.com.eighteenburguers.core.enums.CategoryEnum;
+import br.com.eighteenburguers.core.enums.Category;
 
 import java.io.File;
 import java.math.BigDecimal;
 
 public class Product {
+    
     private Long id;
     private String name;
-    private CategoryEnum categoryEnum;
+    private Category category;
     private BigDecimal price;
     private String description;
     private File image;
 
-    public Product(String name, CategoryEnum categoryEnum, BigDecimal price, String description, File image) {
+    public Product(String name, Category category, BigDecimal price, String description, File image) {
         this.name = name;
-        this.categoryEnum = categoryEnum;
+        this.category = category;
         this.price = price;
         this.description = description;
         this.image = image;
@@ -33,12 +34,12 @@ public class Product {
         this.name = name;
     }
 
-    public CategoryEnum getCategoryEnum() {
-        return categoryEnum;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategory(CategoryEnum categoryEnum) {
-        this.categoryEnum = categoryEnum;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public BigDecimal getPrice() { return price;}

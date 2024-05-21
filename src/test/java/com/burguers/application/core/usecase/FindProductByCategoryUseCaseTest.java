@@ -1,7 +1,7 @@
 package com.burguers.application.core.usecase;
 
 import br.com.eighteenburguers.core.domain.Product;
-import br.com.eighteenburguers.core.enums.CategoryEnum;
+import br.com.eighteenburguers.core.enums.Category;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.outbound.product.FindProductByCategoryOutputPort;
 import br.com.eighteenburguers.core.usecase.product.FindProductByCategoryUseCase;
@@ -40,8 +40,8 @@ public class FindProductByCategoryUseCaseTest {
     @Test
     void shouldReturnAProductSearchedByCategoryId() throws BusinessException {
         var findProductByCategoryUseCase = new FindProductByCategoryUseCase(findProductByCategoryOutputPort);
-        int codigoCategoria = CategoryEnum.LANCHE.getCodigo();
-        Product product = new Product(faker.name().fullName(), CategoryEnum.LANCHE, BigDecimal.valueOf(Math.random()),"Teste descrição", new File("teste"));
+        int codigoCategoria = Category.LANCHE.getCodigo();
+        Product product = new Product(faker.name().fullName(), Category.LANCHE, BigDecimal.valueOf(Math.random()),"Teste descrição", new File("teste"));
         List<Product> productList= new ArrayList<>();
         productList.add(product);
 
@@ -50,13 +50,13 @@ public class FindProductByCategoryUseCaseTest {
         List<Product> productsReturned = findProductByCategoryUseCase.find(codigoCategoria);
 
         assertNotNull(productsReturned);
-        assertEquals(productsReturned.get(0).getCategoryEnum().getCodigo(), codigoCategoria);
+        assertEquals(productsReturned.get(0).getCategory().getCodigo(), codigoCategoria);
     }
 
     @Test
     void shouldReturnNotFoundWhenProductDoesNotExists() throws BusinessException{
         var findProductByCategoryUseCase = new FindProductByCategoryUseCase(findProductByCategoryOutputPort);
-        int codigoCategoria = CategoryEnum.LANCHE.getCodigo();
+        int codigoCategoria = Category.LANCHE.getCodigo();
         List<Product> productList = Collections.emptyList();
 
         when(findProductByCategoryOutputPort.find(codigoCategoria)).thenReturn(productList);

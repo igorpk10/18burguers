@@ -1,6 +1,6 @@
 package br.com.eighteenburguers.adapters.inbound.controller.response;
 
-import br.com.eighteenburguers.core.enums.CategoryEnum;
+import br.com.eighteenburguers.core.enums.Category;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 @Builder
 public class ProductResponse {
 
+    private Long id;
+
     private String name;
 
-    private CategoryEnum categoryEnum;
+    private Category category;
 
     private BigDecimal price;
 

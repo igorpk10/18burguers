@@ -1,6 +1,6 @@
 package br.com.eighteenburguers.adapters.outbound.repository.entity.product;
 
-import br.com.eighteenburguers.core.enums.CategoryEnum;
+import br.com.eighteenburguers.core.enums.Category;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +20,7 @@ public class ProductEntity {
 
     private String name;
 
-    private CategoryEnum categoryEnum;
+    private Category category;
 
     private BigDecimal price;
 

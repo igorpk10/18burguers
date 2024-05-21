@@ -25,11 +25,11 @@ public class CreateProductUseCase implements CreateProductInputPort {
 
     @Override
     public Product insert(Product product) throws BusinessException {
-        Product createdProduct = findProductByIdOutputPort.find(product.getId());
+        // Product createdProduct = findProductByIdOutputPort.find(product.getId());
 
-        if (Objects.nonNull(createdProduct)) {
-            throw new ProductAlreadyExistsException();
-        }
+        // if (Objects.nonNull(createdProduct)) {
+        //     throw new ProductAlreadyExistsException();
+        // }
 
         return createProductOutputPort.insert(product);
     }

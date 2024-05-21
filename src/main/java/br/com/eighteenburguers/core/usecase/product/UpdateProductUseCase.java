@@ -23,11 +23,7 @@ public class UpdateProductUseCase implements UpdateProductInputPort {
 
     @Override
     public void update(Product product) throws BusinessException {
-        Product createdProduct = findProductByIdOutputPort.find(product.getId());
-
-        if (Objects.nonNull(createdProduct)) {
-            throw new ProductNotExistsException();
-        }
+        Product createdProduct = findProductByIdOutputPort.find(product.getId()).orElseThrow(ProductNotExistsException::new);
 
         updateProductOutputPort.update(product);
     }
