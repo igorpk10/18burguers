@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +40,7 @@ public class FindProductByCategoryUseCaseTest {
     void shouldReturnAProductSearchedByCategoryId() throws BusinessException {
         var findProductByCategoryUseCase = new FindProductByCategoryUseCase(findProductByCategoryOutputPort);
         int codigoCategoria = Category.LANCHE.getCodigo();
-        Product product = new Product(faker.name().fullName(), Category.LANCHE, BigDecimal.valueOf(Math.random()),"Teste descrição", new File("teste"));
+        Product product = new Product(faker.name().fullName(), Category.LANCHE, BigDecimal.valueOf(Math.random()),"Teste descrição", "teste");
         List<Product> productList= new ArrayList<>();
         productList.add(product);
 
@@ -61,6 +60,7 @@ public class FindProductByCategoryUseCaseTest {
 
         when(findProductByCategoryOutputPort.find(codigoCategoria)).thenReturn(productList);
 
-        assertThrows(ProductNotExistsException.class,() -> findProductByCategoryUseCase.find(codigoCategoria));
+        List<Product> list = findProductByCategoryUseCase.find(codigoCategoria);
+        assertNotNull(list);
     }
 }

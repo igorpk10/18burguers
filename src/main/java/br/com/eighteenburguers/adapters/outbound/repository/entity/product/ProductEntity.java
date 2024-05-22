@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.io.File;
 import java.math.BigDecimal;
 
 @Data
@@ -26,5 +25,5 @@ public class ProductEntity {
 
     private String description;
 
-    private File image;
+    private String image;
 }

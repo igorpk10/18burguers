@@ -68,6 +68,7 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> findByCategory(@PathVariable final String categoryId) {
         try {
             List<Product> productList = findProductByCategoryInputPort.find(Integer.parseInt(categoryId));
+            log.info("Size: {}", productList.size());
             List<ProductResponse> productResponseList = productList.stream().map(productMapper::toProductResponse).toList();
             return new ResponseEntity<>(productResponseList, HttpStatus.OK);
         } catch (BusinessException e) {

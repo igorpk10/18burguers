@@ -2,7 +2,6 @@ package br.com.eighteenburguers.core.domain;
 
 import br.com.eighteenburguers.core.enums.Category;
 
-import java.io.File;
 import java.math.BigDecimal;
 
 public class Product {
@@ -12,9 +11,9 @@ public class Product {
     private Category category;
     private BigDecimal price;
     private String description;
-    private File image;
+    private String image;
 
-    public Product(String name, Category category, BigDecimal price, String description, File image) {
+    public Product(String name, Category category, BigDecimal price, String description, String image) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -56,11 +55,11 @@ public class Product {
         this.description = description;
     }
 
-    public File getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(File image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

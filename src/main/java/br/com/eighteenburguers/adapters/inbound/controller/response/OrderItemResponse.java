@@ -1,15 +1,13 @@
 package br.com.eighteenburguers.adapters.inbound.controller.response;
 
-import br.com.eighteenburguers.core.enums.Category;
-import lombok.Builder;
-import lombok.Data;
-
 import java.math.BigDecimal;
 
-@Data
-@Builder
-public class ProductResponse {
+import br.com.eighteenburguers.core.enums.Category;
+import lombok.Data;
 
+@Data
+public class OrderItemResponse {
+    
     private Long id;
 
     private String name;
@@ -18,7 +16,7 @@ public class ProductResponse {
 
     private BigDecimal price;
 
-    private String description;
+    private Integer quantity;
 
-    private String image;
+    private String observation;
 }

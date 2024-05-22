@@ -4,10 +4,16 @@ public class OrderItem {
     
     private Product product;
     private Integer quantity;
+    private String observation;
     
-    public OrderItem(Product product, Integer quantity) {
+    public OrderItem(Product product, Integer quantity, String observation) {
         this.product = product;
         this.quantity = quantity;
+        this.observation = observation;
+    }
+
+    public String getObservation() {
+        return observation;
     }
 
     public Product getProduct() {

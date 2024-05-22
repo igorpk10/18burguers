@@ -7,4 +7,5 @@ public class OrderItemRequest {
     
     private Long productId;
     private Integer quantity;
+    private String observation;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.eighteenburguers.adapters.inbound.controller.mappers.OrderMapper;
 import br.com.eighteenburguers.adapters.inbound.controller.request.OrderRequest;
+import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.core.domain.Order;
 import br.com.eighteenburguers.core.domain.OrderItem;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
@@ -29,14 +31,16 @@ public class OrderController {
     private final OrderMapper mapper;
     
     @PostMapping
+    @Transactional
     public ResponseEntity<?> create(@RequestBody OrderRequest orderRequest) {
         try {
             log.info("order: {}", orderRequest);
             List<OrderItem> items = mapper.toOrderItem(orderRequest.getItems());
             Order order = createOrderInputPort.execute(orderRequest.getCustomerId(), items);
-            return ResponseEntity.status(HttpStatus.CREATED).body(order);
+            return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponse(order));
         } catch (BusinessException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            log.error("Error on try create new order: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponses(e));
         }
     }
 }

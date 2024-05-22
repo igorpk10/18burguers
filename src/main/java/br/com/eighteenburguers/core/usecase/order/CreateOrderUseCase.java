@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import br.com.eighteenburguers.core.domain.Order;
 import br.com.eighteenburguers.core.domain.OrderItem;
+import br.com.eighteenburguers.core.domain.OrderStatus;
 import br.com.eighteenburguers.core.domain.Product;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.order.CreateOrderInputPort;
@@ -27,6 +28,7 @@ public class CreateOrderUseCase implements CreateOrderInputPort {
 
         Order order = new Order(customerId, orderItems);
         order.calculateAmount();
+        order.setStatus(OrderStatus.AWAITING_PAYMENT);
         return saveOrderOutputPort.save(order);
     }
 
@@ -45,7 +47,7 @@ public class CreateOrderUseCase implements CreateOrderInputPort {
                 .findFirst();
             
             if(optional.isPresent()) {
-                orderItems.add(new OrderItem(optional.get(), item.getQuantity()));
+                orderItems.add(new OrderItem(optional.get(), item.getQuantity(), item.getObservation()));
             }
         }
 

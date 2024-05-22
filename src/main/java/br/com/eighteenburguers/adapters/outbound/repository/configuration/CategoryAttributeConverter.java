@@ -1,4 +1,4 @@
-package br.com.eighteenburguers.adapters.outbound.repository.entity.product;
+package br.com.eighteenburguers.adapters.outbound.repository.configuration;
 
 import br.com.eighteenburguers.core.enums.Category;
 import jakarta.persistence.AttributeConverter;
