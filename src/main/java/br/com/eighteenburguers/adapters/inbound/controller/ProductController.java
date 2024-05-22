@@ -4,9 +4,15 @@ import br.com.eighteenburguers.adapters.inbound.controller.mappers.ProductMapper
 import br.com.eighteenburguers.adapters.inbound.controller.request.ProductRequest;
 import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.adapters.inbound.controller.response.ProductResponse;
+import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.domain.Product;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.product.*;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +23,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Products")
 @Slf4j
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController implements ApiV1 {
 
     @Autowired
     private CreateProductInputPort createProductInputPort;
@@ -40,7 +47,8 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
+    @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Product.class)))
     public ResponseEntity<?> insert(@Valid @RequestBody ProductRequest productRequest) {
         try {
             var product = productMapper.toProduct(productRequest);
@@ -54,6 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Product.class)))
     public ResponseEntity<ProductResponse> findById(@PathVariable final Long id) {
         try {
             Product product = findProductByIdInputPort.find(id);
@@ -65,6 +74,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{categoryId}")
+    @ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))))
     public ResponseEntity<List<ProductResponse>> findByCategory(@PathVariable final String categoryId) {
         try {
             List<Product> productList = findProductByCategoryInputPort.find(Integer.parseInt(categoryId));
@@ -78,6 +88,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     public ResponseEntity<?> update(@PathVariable final String id, @Valid @RequestBody ProductRequest productRequest) {
         try {
             Product product = productMapper.toProduct(productRequest);
@@ -91,6 +102,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     public ResponseEntity<?> delete(@PathVariable final String id) {
         try {
             deleteProductByIdInputPort.delete(Long.parseLong(id));

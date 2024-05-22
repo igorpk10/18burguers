@@ -9,18 +9,16 @@ import java.math.BigDecimal;
 @Data
 public class ProductRequest {
 
-    // @NotBlank
+    @NotBlank
     private String name;
 
-    // @NotBlank
     private Category category;
 
-    // @NotBlank
     private BigDecimal price;
 
-    // @NotBlank
+    @NotBlank
     private String description;
 
-    // @NotBlank
+    @NotBlank
     private String image;
 }
