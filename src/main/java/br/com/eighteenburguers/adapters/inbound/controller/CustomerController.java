@@ -3,6 +3,7 @@ package br.com.eighteenburguers.adapters.inbound.controller;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +19,20 @@ import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.customer.CreateCustomerInputPort;
 import br.com.eighteenburguers.core.ports.inbound.customer.FindCustomerInputPort;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
+@Tag(name = "Customers")
 @Slf4j
 @RestController
 @RequestMapping("/customers")
-public class CustomerController {
+public class CustomerController implements ApiV1 {
 
     @Autowired
     private CreateCustomerInputPort createCustomerUseCasePort;
@@ -39,6 +45,7 @@ public class CustomerController {
 
     @PostMapping
     @Transactional
+    @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Customer.class)))
     public ResponseEntity<?> create(@RequestBody @Valid CustomerRequest request) {
         try {
             Customer customer = createCustomerUseCasePort.execute(mapper.toCustomer(request));

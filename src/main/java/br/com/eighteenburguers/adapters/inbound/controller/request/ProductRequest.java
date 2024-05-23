@@ -1,10 +1,9 @@
 package br.com.eighteenburguers.adapters.inbound.controller.request;
 
-import br.com.eighteenburguers.core.enums.CategoryEnum;
+import br.com.eighteenburguers.core.enums.Category;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.io.File;
 import java.math.BigDecimal;
 
 @Data
@@ -13,15 +12,13 @@ public class ProductRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private CategoryEnum categoryEnum;
+    private Category category;
 
-    @NotBlank
     private BigDecimal price;
 
     @NotBlank
     private String description;
 
     @NotBlank
-    private File image;
+    private String image;
 }

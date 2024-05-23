@@ -18,8 +18,12 @@ public class FindProductByIdAdapter implements FindProductByIdOutputPort {
     private final ProductEntityMapper productEntityMapper;
 
     @Override
-    public Product find(Long id) {
+    public Optional<Product> find(Long id) {
         Optional<ProductEntity> optional = productRepository.findById(id);
-        return optional.map(productEntityMapper::toProduct).orElse(null);
+        if(optional.isEmpty()) {
+            return Optional.empty();
+        }
+        Product product = productEntityMapper.toProduct(optional.get());
+        return Optional.of(product);
     }
 }
