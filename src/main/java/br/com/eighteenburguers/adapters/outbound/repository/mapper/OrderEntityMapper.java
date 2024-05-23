@@ -5,6 +5,7 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 
 import java.util.List;
 
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,7 +14,7 @@ import br.com.eighteenburguers.adapters.outbound.repository.entity.order.OrderIt
 import br.com.eighteenburguers.core.domain.Order;
 import br.com.eighteenburguers.core.domain.OrderItem;
 
-@Mapper(unmappedTargetPolicy = IGNORE, nullValueCheckStrategy = ALWAYS)
+@Mapper(unmappedTargetPolicy = IGNORE, nullValueCheckStrategy = ALWAYS, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface OrderEntityMapper {
     
     @Mapping(target = "items", source = "items")

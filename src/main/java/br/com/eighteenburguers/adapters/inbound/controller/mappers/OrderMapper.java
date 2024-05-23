@@ -26,6 +26,8 @@ public interface OrderMapper {
     @Mapping(target = "statusDescription", source = "status.description")
     OrderResponse toResponse(Order order);
 
+    List<OrderResponse> toResponse(List<Order> orders);
+
     @Mapping(target = "id", source = "product.id")
     @Mapping(target = "name", source = "product.name")
     @Mapping(target = "category", source = "product.category")

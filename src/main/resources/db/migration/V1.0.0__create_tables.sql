@@ -28,6 +28,7 @@ CREATE TABLE public.products (
 CREATE TABLE public.orders (
 	id bigserial NOT NULL,
 	amount numeric(38, 2) NULL,
+	customer_id bigint NULL,
 	created_at timestamptz(6) NULL,
 	status int4 NULL,
 	updated_at timestamptz(6) NULL,
