@@ -6,21 +6,19 @@ services:
     networks:
       - redeburguers
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB}
+      POSTGRES_USER: fiap
+      POSTGRES_PASSWORD: fiap
+      POSTGRES_DB: 18Burguers
     ports:
       - "5432:5432"
-    volumes:
-      - ./scripts/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
 
   app:
     links:
       - db
     environment:
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB: ${DB_URL}
+      DB_USER: fiap
+      DB_PASSWORD: fiap
+      DB: jdbc:postgresql://db:5432/18Burguers
     build:
       context: .
       dockerfile: Dockerfile

@@ -6,5 +6,7 @@ import br.com.eighteenburguers.core.domain.Product;
 
 public interface FindProductOutputPort {
     
+    List<Product> findAll();
+
     List<Product> findByIds(List<Long> ids);
 }

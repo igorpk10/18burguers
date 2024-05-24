@@ -20,4 +20,4 @@ WORKDIR /app
 
 COPY --from=builder /app/target/app.jar .
 
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "-Dspring.profiles.active=prod", "app.jar"]

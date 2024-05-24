@@ -13,6 +13,11 @@ Para rodar, basta ter o Docker instalado em sua máquina e rodar o seguinte coma
 docker compose up -d
 ```
 
+Reconstruir a aplicação
+```shell
+docker-compose build --no-cache
+```
+
 Após ter rodado o comando acima, será possível acessar o Swagger por meio do endpoint:
 
 http://localhost:8080/swagger-ui/index.html

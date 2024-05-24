@@ -11,7 +11,7 @@ import static org.mapstruct.ReportingPolicy.IGNORE;
 import java.util.List;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(unmappedTargetPolicy = IGNORE, nullValueCheckStrategy = ALWAYS)
 public interface ProductEntityMapper {
 
     Product toProduct(ProductEntity entity);

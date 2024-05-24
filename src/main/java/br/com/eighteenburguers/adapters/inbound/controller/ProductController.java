@@ -4,7 +4,6 @@ import br.com.eighteenburguers.adapters.inbound.controller.mappers.ProductMapper
 import br.com.eighteenburguers.adapters.inbound.controller.request.ProductRequest;
 import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
 import br.com.eighteenburguers.adapters.inbound.controller.response.ProductResponse;
-import br.com.eighteenburguers.core.domain.Customer;
 import br.com.eighteenburguers.core.domain.Product;
 import br.com.eighteenburguers.core.exceptions.BusinessException;
 import br.com.eighteenburguers.core.ports.inbound.product.*;
@@ -14,8 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,25 +26,22 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController implements ApiV1 {
 
-    @Autowired
-    private CreateProductInputPort createProductInputPort;
+    private final CreateProductInputPort createProductInputPort;
 
-    @Autowired
-    private UpdateProductInputPort updateProductInputPort;
+    private final UpdateProductInputPort updateProductInputPort;
 
-    @Autowired
-    private FindProductByIdInputPort findProductByIdInputPort;
+    private final FindProductByIdInputPort findProductByIdInputPort;
 
-    @Autowired
-    private FindProductByCategoryInputPort findProductByCategoryInputPort;
+    private final FindProductByCategoryInputPort findProductByCategoryInputPort;
 
-    @Autowired
-    private DeleteProductByIdInputPort deleteProductByIdInputPort;
+    private final DeleteProductByIdInputPort deleteProductByIdInputPort;
+    
+    private final FindProductsInputPort findProductsInputPort;
 
-    @Autowired
-    private ProductMapper productMapper;
+    private final ProductMapper productMapper;
 
     @PostMapping
     @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Product.class)))
@@ -59,6 +55,13 @@ public class ProductController implements ApiV1 {
             log.error("Error when trying to create product: {}: {}", e.getCode(), e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponses(e));
         }
+    }
+
+    @GetMapping
+    @ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ProductResponse.class))))
+    public ResponseEntity<?> list() {
+        List<Product> products = findProductsInputPort.execute();    
+        return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
     @GetMapping("/{id}")
