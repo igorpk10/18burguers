@@ -1,0 +1,558 @@
+openapi: 3.0.1
+info:
+  title: Swagger Eighteen Burguers
+  description: Sistema de lanchonete para o tech challenge da Pós Tech FIAP + Alura
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/v1
+tags:
+  - name: Eighteen Burguers
+    description: Sistema de lanchonete
+paths:
+  /products/{id}:
+    get:
+      tags:
+        - Products
+      summary: Busca um produto pelo seu Id.
+      description: "Através deste endpoint é possível buscar um produto pelo seu Id"
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+    put:
+      tags:
+        - Products
+      summary: Edita um produto existente.
+      description: "Através deste endpoint é possível editar um produto"
+      operationId: update
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+    delete:
+      tags:
+        - Products
+      summary: Remove um produto pelo seu Id.
+      description: "Através deste endpoint é possível remover um produto pelo seu Id"
+      operationId: delete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /products:
+    post:
+      tags:
+        - Products
+      summary: Adiciona um novo produto.
+      description: "Através deste endpoint é possível criar um novo produto"
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: Busca uma lista de pedidos.
+      description: "Através deste endpoint é possível buscar uma lista de pedidos"
+      operationId: list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+    post:
+      tags:
+        - Orders
+      summary: Adiciona um novo pedido.
+      description: "Através deste endpoint é possível criar um novo pedido"
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /orders/{orderId}/checkout:
+    post:
+      tags:
+        - Orders
+      summary: Realiza checkout de um pedido.
+      description: "Através deste endpoint é possível realizar checkout de um pedido"
+      operationId: checkout
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /customers:
+    post:
+      tags:
+        - Customers
+      summary: Adiciona um novo cliente.
+      description: "Através deste endpoint é possível criar um novo cliente"
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /products/category/{categoryId}:
+    get:
+      tags:
+        - Products
+      summary: Busca um produto pelo seu Id.
+      description: "Através deste endpoint é possível buscar um produto pelo seu Id"
+      operationId: findByCategory
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /orders/{orderId}:
+    get:
+      tags:
+        - Orders
+      summary: Busca um pedido pelo seu Id.
+      description: "Através deste endpoint é possível buscar um pedido pelo seu id"
+      operationId: findById_1
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /health:
+    get:
+      tags:
+        - health-controller
+      summary: Verifica disponibilidade da aplicação.
+      description: "Através deste endpoint é possível verificar a disponibilidade da aplicação"
+      operationId: ping
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /customers/search:
+    get:
+      tags:
+        - Customers
+      summary: Busca um cliente pelo seu CPF.
+      description: "Através deste endpoint é possível buscar um cliente pelo seu número de CPF"
+      operationId: search
+      parameters:
+        - name: cpf
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+components:
+  schemas:
+    ProductRequest:
+      required:
+        - description
+        - image
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        category:
+          type: string
+          enum:
+            - LANCHE
+            - ACOMPANHAMENTO
+            - BEBIDA
+            - SOBREMESA
+        price:
+          type: number
+        description:
+          type: string
+        image:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    ErrorResponses:
+      type: object
+      properties:
+        errors:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        category:
+          type: string
+          enum:
+            - LANCHE
+            - ACOMPANHAMENTO
+            - BEBIDA
+            - SOBREMESA
+        price:
+          type: number
+        description:
+          type: string
+        image:
+          type: string
+    OrderItemRequest:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+        observation:
+          type: string
+    OrderRequest:
+      type: object
+      properties:
+        customerId:
+          type: integer
+          format: int64
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemRequest'
+    OrderItemResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        category:
+          type: string
+          enum:
+            - LANCHE
+            - ACOMPANHAMENTO
+            - BEBIDA
+            - SOBREMESA
+        price:
+          type: number
+        quantity:
+          type: integer
+          format: int32
+        observation:
+          type: string
+    OrderResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        customerId:
+          type: integer
+          format: int64
+        amount:
+          type: number
+        status:
+          type: string
+          enum:
+            - CREATED
+            - AWAITING_PAYMENT
+            - PAID
+            - CANCELED
+        statusDescription:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemResponse'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CustomerRequest:
+      required:
+        - cpf
+        - email
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 55
+          minLength: 4
+          type: string
+        cpf:
+          type: string
+        email:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        document:
+          $ref: '#/components/schemas/Document'
+        name:
+          type: string
+        email:
+          type: string
+    Document:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - CPF
+        number:
+          type: string
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        category:
+          type: string
+          enum:
+            - LANCHE
+            - ACOMPANHAMENTO
+            - BEBIDA
+            - SOBREMESA
+        price:
+          type: number
+        description:
+          type: string
+        image:
+          type: string
