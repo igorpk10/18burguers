@@ -29,5 +29,11 @@ public class FindProductAdapter implements FindProductOutputPort{
 
         return mapper.toProduct(products);
     }
+
+    @Override
+    public List<Product> findAll() {
+        List<ProductEntity> entities = repository.findAll();
+        return mapper.toProduct(entities);
+    }
     
 }
