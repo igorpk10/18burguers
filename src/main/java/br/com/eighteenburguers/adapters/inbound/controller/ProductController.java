@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,7 @@ public class ProductController implements ApiV1 {
     private final ProductMapper productMapper;
 
     @PostMapping
+    @Transactional
     @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Product.class)))
     public ResponseEntity<?> insert(@Valid @RequestBody ProductRequest productRequest) {
         try {
@@ -91,6 +93,7 @@ public class ProductController implements ApiV1 {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     @ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     public ResponseEntity<?> update(@PathVariable final String id, @Valid @RequestBody ProductRequest productRequest) {
         try {
@@ -105,6 +108,7 @@ public class ProductController implements ApiV1 {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     @ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
     public ResponseEntity<?> delete(@PathVariable final String id) {
         try {
