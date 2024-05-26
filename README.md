@@ -23,7 +23,7 @@ O objetivo principal do 18Burguers é fornecer um sistema de autoatendimento que
 
 1.  Clone o repositório:
    ```shell   
-  `git clone <url-do-repositorio>` 
+  `git clone https://github.com/igorpk10/18burguers.git` 
  ```
 2.  Navegue até o diretório do projeto:
 
