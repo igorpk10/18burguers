@@ -1,49 +1,85 @@
-# Tech Challenge Fiap - Fase 1
+<div style="display: flex; align-items: center;">
+  <img src="./docs/images/logo.png" alt="Descrição da imagem" width="40" height="40" style="margin-right: 10px;">
+  <span>Texto ao lado da imagem</span>
+</div>
 
-- [Tech Challenge Fiap - Fase 1](#tech-challenge-fiap---fase-1)
-    - [Como rodar?](#como-rodar)
-    - [Arquitetura](#arquitetura)
-    - [Estrutura de pastas](#estrutura-de-pastas)
 
-## Como rodar?
+## Descrição Geral
 
-Para rodar, basta ter o Docker instalado em sua máquina e rodar o seguinte comando:
+O 18Burguers é um sistema de autoatendimento desenvolvido para a lanchonete de mesmo nome com objetivo principal de oferecer aos seus clientes  uma experiência eficiente, única e confiável na realização de pedidos, desde a seleção dos produtos até a sua entrega final.
 
-```shell
-docker compose up -d
-```
+## Objetivo do Sistema
 
-Reconstruir a aplicação
-```shell
-docker-compose build --no-cache
-```
+O objetivo principal do 18Burguers é fornecer um sistema de autoatendimento que permita aos clientes realizar pedidos de maneira autônoma e personalizada, garantindo eficiência e precisão na gestão dos pedidos até a sua entrega.
 
-Após ter rodado o comando acima, será possível acessar o Swagger por meio do endpoint:
+## Tecnologias Utilizadas
 
-http://localhost:8080/swagger-ui/index.html
+-   Java
+-   Spring Boot
+-   PostgreSQL
+-   Docker
+
+## Pré-requisitos
+
+-   Docker e Docker Compose instalados
+
+## Instalação
+
+1.  Clone o repositório:
+   ```shell   
+  `git clone <url-do-repositorio>` 
+ ```
+2.  Navegue até o diretório do projeto:
+
+  ```shell    
+`cd 18Burguers` 
+  ```
+
+3.  Suba os containers Docker:
+
+  ```shell  
+  docker-compose up -d` 
+  ```
+
+## Uso Básico
+
+Após a instalação e configuração dos containers Docker, utilize os endpoints documentados no Swagger para interagir com o sistema.
+
+## Funcionalidades Principais
+
+-   Cadastro e consulta de clientes
+-   Cadastro, edição e deleção de produtos
+-   Criação de pedidos conforme a escolha dos produtos
+-   Simulação de checkout e consumo de serviço de pagamento
 
 ## Arquitetura
 
-Para desenvolvimento do projeto, foi utilizado a Arquitetura Hexagonal.
+O sistema utiliza uma arquitetura hexagonal, promovendo a separação de responsabilidades e facilitando a manutenção e escalabilidade.
 
-![Arquitetura Hexagonal](docs/images/hexagonal-arch.png)
-Fonte: https://community.revelo.com.br/o-que-e-arquitetura-de-software/
+<img src="./docs/images/arqHexagonal.jpg">
 
-## Estrutura de pastas
 
-```
-.
-└── src/
-    ├── application/
-    │   ├── exceptions
-    │   ├── ports
-    │   └── services
-    ├── domain/
-    │   ├── entities
-    │   ├── enums
-    │   └── valueobjects
-    ├── infrastructure/
-    │   └── repositories
-    └── userinterface/
-        └── controllers
-```
+## Estrutura de Pastas
+
+<img src="./docs/images/pastas.jpg">
+
+
+## Banco de Dados
+
+O sistema utiliza PostgreSQL. Dentro do projeto, há scripts para criação e alimentação das tabelas necessárias.
+
+
+
+## Roadmap
+
+-   Refatoração baseada no Clean Code e Clean Architecture
+-   Integração com o sistema de pagamento do Mercado Livre
+-   Implementação da arquitetura em Kubernetes
+
+## Contato
+
+-   Angela Giampaoli - [GitHub](https://github.com/angelazgiampaoli) | [LinkedIn](https://www.linkedin.com/in/angelazoldangiampaoli/)
+-   Gabriel Nogueira - [GitHub](https://github.com/gabrielmvnog) | [LinkedIn](https://www.linkedin.com/in/gabrielmvnogueira/)
+-   Igor da Costa - [GitHub](https://github.com/igorpk10) | [LinkedIn](https://www.linkedin.com/in/igao/)
+-   Marcus Pioner - [GitHub](https://github.com/marcuspionerfiap) | [LinkedIn](https://www.linkedin.com/in/marcus-pioner-923237113/)
+-   Mauricio Silva - [GitHub](https://github.com/mauriciolimas) | [LinkedIn](https://www.linkedin.com/in/mauricio-lima-silva-546041141/)
