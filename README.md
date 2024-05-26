@@ -1,4 +1,4 @@
-﻿!['](docs/images/logo.png)# 18Burguers
+!['](docs/images/logo.png)# 18Burguers
 
 ## Descrição Geral
 
