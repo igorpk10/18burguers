@@ -39,7 +39,7 @@ O objetivo principal do 18Burguers é fornecer um sistema de autoatendimento que
 
 ## Uso Básico
 
-Após a instalação e configuração dos containers Docker, utilize os endpoints documentados no Swagger para interagir com o sistema.
+Após a instalação e configuração dos containers Docker, utilize os endpoints documentados no [Swagger](./docs/swagger/18burguers_swagger.yaml) para interagir com o sistema.
 
 ## Funcionalidades Principais
 
