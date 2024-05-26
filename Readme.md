@@ -1,4 +1,8 @@
-﻿!['](docs/images/logo.png)# 18Burguers
+﻿<div style="display: flex; align-items: center;">
+  <img src="./docs/logo.png" alt="Descrição da imagem" width="40" height="40" style="margin-right: 10px;">
+  <span>Texto ao lado da imagem</span>
+</div>
+
 
 ## Descrição Geral
 
@@ -37,7 +41,6 @@ O objetivo principal do 18Burguers é fornecer um sistema de autoatendimento que
   docker-compose up -d` 
   ```
     
-
 ## Uso Básico
 
 Após a instalação e configuração dos containers Docker, utilize os endpoints documentados no Swagger para interagir com o sistema.
@@ -53,19 +56,25 @@ Após a instalação e configuração dos containers Docker, utilize os endpoint
 
 O sistema utiliza uma arquitetura hexagonal, promovendo a separação de responsabilidades e facilitando a manutenção e escalabilidade.
 
+<img src="./docs/arqHexagonal.jpg">
+
+
 ## Estrutura de Pastas
 
-!['](docs/images/pastas.jpg)
+<img src="./docs/pastas.jpg">
+
 
 ## Banco de Dados
 
 O sistema utiliza PostgreSQL. Dentro do projeto, há scripts para criação e alimentação das tabelas necessárias.
 
 
-## Testes
 
-O projeto inclui testes unitários.
+## Roadmap
 
+-   Refatoração baseada no Clean Code e Clean Architecture
+-   Integração com o sistema de pagamento do Mercado Livre
+-   Implementação da arquitetura em Kubernetes
 
 ## Contato
 
@@ -74,12 +83,3 @@ O projeto inclui testes unitários.
 -   Igor da Costa - [GitHub](https://github.com/igorpk10) | [LinkedIn](https://www.linkedin.com/in/igao/)
 -   Marcus Pioner - [GitHub](https://github.com/marcuspionerfiap) | [LinkedIn](https://www.linkedin.com/in/marcus-pioner-923237113/)
 -   Mauricio Silva - [GitHub](https://github.com/mauriciolimas) | [LinkedIn](https://www.linkedin.com/in/mauricio-lima-silva-546041141/)
-
-## Roadmap
-
--   Refatoração baseada no Clean Code e Clean Architecture
--   Integração com o sistema de pagamento do Mercado Livre
--   Implementação da arquitetura em Kubernetes
-
-## Screenshots
-!['](docs/images/arqHexagonal.jpg)
