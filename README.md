@@ -22,19 +22,19 @@ O objetivo principal do 18Burguers é fornecer um sistema de autoatendimento que
 ## Instalação
 
 1.  Clone o repositório:
-   ```shell   
-  `git clone https://github.com/igorpk10/18burguers.git` 
+   ```shell
+git clone https://github.com/igorpk10/18burguers.git
  ```
 2.  Navegue até o diretório do projeto:
 
-  ```shell    
-`cd 18Burguers` 
+  ```shell
+cd 18Burguers
   ```
 
 3.  Suba os containers Docker:
 
-  ```shell  
-  docker-compose up -d` 
+  ```shell
+docker-compose up -d
   ```
 
 ## Uso Básico
