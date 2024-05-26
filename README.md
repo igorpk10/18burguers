@@ -1,8 +1,4 @@
-<div style="display: flex; align-items: center;">
-  <img src="./docs/logo.png" alt="Descrição da imagem" width="40" height="40" style="margin-right: 10px;">
-  <span>Texto ao lado da imagem</span>
-</div>
-
+ <img src="./docs/logo.png" alt="Descrição da imagem" style="width: 100px">
 
 ## Descrição Geral
 
