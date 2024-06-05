@@ -1,6 +1,6 @@
 package com.burguers.application.core.usecase;
 
-import br.com.eighteenburguers.core.ports.outbound.product.UpdateProductOutputPort;
+import br.com.eighteenburguers.product.services.UpdateProductService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.verify;
 public class UpdateProductUseCaseTest {
 
     @Mock
-    private UpdateProductOutputPort updateProductOutputPort;
+    private UpdateProductService updateProductOutputPort;
 
     @Test
     void shouldUpdateAProductById() {

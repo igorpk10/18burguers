@@ -1,11 +1,10 @@
 package com.burguers.application.core.usecase;
 
-import br.com.eighteenburguers.core.domain.Product;
-import br.com.eighteenburguers.core.enums.Category;
-import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.outbound.product.FindProductByCategoryOutputPort;
-import br.com.eighteenburguers.core.usecase.product.FindProductByCategoryUseCase;
-import br.com.eighteenburguers.core.usecase.product.exceptions.ProductNotExistsException;
+import br.com.eighteenburguers.product.entitys.Product;
+import br.com.eighteenburguers.category.model.Category;
+import br.com.eighteenburguers.product.exceptions.BusinessException;
+import br.com.eighteenburguers.product.services.FindProductByCategoryService;
+import br.com.eighteenburguers.product.usecase.FindProductByCategoryUseCaseImpl;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.when;
 public class FindProductByCategoryUseCaseTest {
 
     @Mock
-    private FindProductByCategoryOutputPort findProductByCategoryOutputPort;
+    private FindProductByCategoryService findProductByCategoryOutputPort;
 
     Faker faker;
 
@@ -38,7 +37,7 @@ public class FindProductByCategoryUseCaseTest {
 
     @Test
     void shouldReturnAProductSearchedByCategoryId() throws BusinessException {
-        var findProductByCategoryUseCase = new FindProductByCategoryUseCase(findProductByCategoryOutputPort);
+        var findProductByCategoryUseCase = new FindProductByCategoryUseCaseImpl(findProductByCategoryOutputPort);
         int codigoCategoria = Category.LANCHE.getCodigo();
         Product product = new Product(faker.name().fullName(), Category.LANCHE, BigDecimal.valueOf(Math.random()),"Teste descrição", "teste");
         List<Product> productList= new ArrayList<>();
@@ -54,7 +53,7 @@ public class FindProductByCategoryUseCaseTest {
 
     @Test
     void shouldReturnNotFoundWhenProductDoesNotExists() throws BusinessException{
-        var findProductByCategoryUseCase = new FindProductByCategoryUseCase(findProductByCategoryOutputPort);
+        var findProductByCategoryUseCase = new FindProductByCategoryUseCaseImpl(findProductByCategoryOutputPort);
         int codigoCategoria = Category.LANCHE.getCodigo();
         List<Product> productList = Collections.emptyList();
 

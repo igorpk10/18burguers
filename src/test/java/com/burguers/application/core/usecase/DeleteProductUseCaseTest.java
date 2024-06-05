@@ -1,6 +1,6 @@
 package com.burguers.application.core.usecase;
 
-import br.com.eighteenburguers.core.ports.outbound.product.DeleteProductByIdOutputPort;
+import br.com.eighteenburguers.product.services.DeleteProductByIdService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class DeleteProductUseCaseTest {
 
     @Mock
-    private DeleteProductByIdOutputPort deleteProductByIdOutputPort;
+    private DeleteProductByIdService deleteProductByIdOutputPort;
 
     @Test
     void shouldDeleteAProductById() {
