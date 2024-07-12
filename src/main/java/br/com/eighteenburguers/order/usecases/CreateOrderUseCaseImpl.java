@@ -17,18 +17,18 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
-    private final FindProductService findProductOutputPort;
-    private final SaveOrderService saveOrderOutputPort;
+    private final FindProductService findProductService;
+    private final SaveOrderService saveOrderService;
 
     @Override
-    public Order execute(final Long customerId, final List<OrderItem> items) throws BusinessException {
+    public Order execute(final String customerId, final List<OrderItem> items) throws BusinessException {
 
         List<OrderItem> orderItems = this.mapProducts(items);
 
         Order order = new Order(customerId, orderItems);
         order.calculateAmount();
         order.setStatus(OrderStatus.AWAITING_PAYMENT);
-        return saveOrderOutputPort.save(order);
+        return saveOrderService.save(order);
     }
 
     private List<OrderItem> mapProducts(List<OrderItem> items) {
@@ -38,7 +38,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
             .map(Product::getId)    
             .collect(Collectors.toList());
 
-        List<Product> products = findProductOutputPort.findByIds(ids);
+        List<Product> products = findProductService.findByIds(ids);
 
         for(OrderItem item: items) {
             Optional<Product> optional = products.stream()

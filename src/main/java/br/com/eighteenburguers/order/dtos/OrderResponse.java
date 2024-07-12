@@ -11,7 +11,7 @@ import lombok.Data;
 public class OrderResponse {
     
     private Long id;
-    private Long customerId;
+    private String customerId;
     private BigDecimal amount;
     private OrderStatus status;
     private String statusDescription;

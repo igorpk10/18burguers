@@ -38,7 +38,7 @@ public class CustomerAPI implements ApiV1{
     private CustomerController customerController;
 
 
-      @PostMapping
+    @PostMapping
     @Transactional
     @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Customer.class)))
     public ResponseEntity<?> create(@RequestBody @Valid CustomerRequest request) {

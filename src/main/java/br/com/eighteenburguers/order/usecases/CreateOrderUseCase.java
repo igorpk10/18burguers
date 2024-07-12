@@ -8,5 +8,5 @@ import br.com.eighteenburguers.product.exceptions.BusinessException;
 
 public interface CreateOrderUseCase {
     
-    Order execute(final Long customerId, final List<OrderItem> items) throws BusinessException;
+    Order execute(final String customerId, final List<OrderItem> items) throws BusinessException;
 }

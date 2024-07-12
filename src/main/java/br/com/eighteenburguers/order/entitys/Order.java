@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+import br.com.eighteenburguers.order.exceptions.OrderInvalidFieldException;
+
 public class Order {
     
     private Long id;
-    private Long customerId;
+    private String customerId;
     private BigDecimal amount = BigDecimal.ZERO;
     private OrderStatus status;
     private Instant createdAt;
@@ -19,26 +21,17 @@ public class Order {
         this.items = items;
     }
 
-    public Order(Long customerId, List<OrderItem> items) {
+    public Order(String customerId, List<OrderItem> items) {
         this.items = items;
-        if(customerId == null) {
-            this.customerId = 0L;
-        } else {
-            this.customerId = customerId;
+
+        if(customerId == null){
+            throw new OrderInvalidFieldException("customerId");
         }
+
+        this.customerId = customerId;
     }
 
-    public Order(Long customerId, List<OrderItem> items, OrderStatus status) {
-        this.items = items;
-        this.status = status;
-        if(customerId == null) {
-            this.customerId = 0L;
-        } else {
-            this.customerId = customerId;
-        }
-    }
-
-    public Order(Long id, Long customerId, List<OrderItem> items, BigDecimal amount, OrderStatus status,
+    public Order(Long id, String customerId, List<OrderItem> items, BigDecimal amount, OrderStatus status,
             Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.customerId = customerId;
@@ -61,7 +54,7 @@ public class Order {
         return items;
     }
 
-    public Long getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
