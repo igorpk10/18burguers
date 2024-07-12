@@ -2,6 +2,8 @@ package br.com.eighteenburguers.product.controllers;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.eighteenburguers.product.dtos.ProductRequest;
 import br.com.eighteenburguers.product.dtos.ProductResponse;
 import br.com.eighteenburguers.product.entitys.Product;
@@ -14,6 +16,7 @@ import br.com.eighteenburguers.product.usecase.FindProductByIdUseCase;
 import br.com.eighteenburguers.product.usecase.FindProductsUseCase;
 import br.com.eighteenburguers.product.usecase.UpdateProductUseCase;
 
+@Component
 public class ProductControllerImpl implements ProductController {
 
     private final CreateProductUseCase createProductInputPort;

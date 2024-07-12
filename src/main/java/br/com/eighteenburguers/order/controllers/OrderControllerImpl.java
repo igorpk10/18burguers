@@ -2,6 +2,8 @@ package br.com.eighteenburguers.order.controllers;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import br.com.eighteenburguers.order.dtos.OrderRequest;
 import br.com.eighteenburguers.order.dtos.OrderResponse;
 import br.com.eighteenburguers.order.mappers.OrderMapper;
@@ -11,6 +13,7 @@ import br.com.eighteenburguers.order.usecases.FindAllOrdersUseCase;
 import br.com.eighteenburguers.order.usecases.FindOrderByIdUseCase;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
 
+@Component
 public class OrderControllerImpl implements OrderController {
 
     private CreateOrderUseCase createOrderUseCase;

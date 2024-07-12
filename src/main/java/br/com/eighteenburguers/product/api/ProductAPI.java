@@ -47,7 +47,7 @@ public class ProductAPI {
     @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Product.class)))
     public ResponseEntity<?> insert(@Valid @RequestBody ProductRequest productRequest) {
         try {
-            var response =  productController.insert(productRequest)
+            var response =  productController.insert(productRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (BusinessException e) {
             log.error("Error when trying to create product: {}: {}", e.getCode(), e.getMessage());

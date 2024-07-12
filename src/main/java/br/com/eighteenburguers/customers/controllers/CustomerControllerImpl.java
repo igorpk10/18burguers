@@ -1,5 +1,7 @@
 package br.com.eighteenburguers.customers.controllers;
 
+import org.springframework.stereotype.Component;
+
 import br.com.eighteenburguers.customers.dtos.CustomerRequest;
 import br.com.eighteenburguers.customers.dtos.CustomerResponse;
 import br.com.eighteenburguers.customers.mappers.CustomerMapper;
@@ -7,6 +9,7 @@ import br.com.eighteenburguers.customers.usecases.CreateCustomerUseCase;
 import br.com.eighteenburguers.customers.usecases.FindCustomerUseCase;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
 
+@Component
 public class CustomerControllerImpl implements CustomerController{
 
     private CreateCustomerUseCase createCustomerUseCase;
