@@ -14,24 +14,24 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.github.javafaker.Faker;
 
-import br.com.eighteenburguers.core.domain.Order;
-import br.com.eighteenburguers.core.domain.OrderItem;
-import br.com.eighteenburguers.core.domain.Product;
-import br.com.eighteenburguers.core.enums.Category;
-import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.order.CreateOrderInputPort;
-import br.com.eighteenburguers.core.ports.outbound.order.SaveOrderOutputPort;
-import br.com.eighteenburguers.core.ports.outbound.product.FindProductOutputPort;
-import br.com.eighteenburguers.core.usecase.order.CreateOrderUseCase;
+import br.com.eighteenburguers.order.entitys.Order;
+import br.com.eighteenburguers.order.entitys.OrderItem;
+import br.com.eighteenburguers.product.entitys.Product;
+import br.com.eighteenburguers.category.model.Category;
+import br.com.eighteenburguers.product.exceptions.BusinessException;
+import br.com.eighteenburguers.order.usecases.CreateOrderUseCase;
+import br.com.eighteenburguers.order.services.SaveOrderService;
+import br.com.eighteenburguers.product.services.FindProductService;
+import br.com.eighteenburguers.order.usecases.CreateOrderUseCaseImpl;
 
 @ExtendWith(MockitoExtension.class)
 class CreateOrderUseCaseTest {
     
     @Mock
-    FindProductOutputPort findProductOutputPort;
+    FindProductService findProductOutputPort;
     
     @Mock
-    SaveOrderOutputPort saveOrderOutputPort;
+    SaveOrderService saveOrderOutputPort;
 
     Faker faker;
 
@@ -45,7 +45,7 @@ class CreateOrderUseCaseTest {
         Mockito.when(findProductOutputPort.findByIds(Mockito.anyList())).thenReturn(mockProducts());
         Mockito.when(saveOrderOutputPort.save(Mockito.any())).thenReturn(new Order(null, null));
 
-        CreateOrderInputPort usecase = new CreateOrderUseCase(findProductOutputPort, saveOrderOutputPort);
+        CreateOrderUseCase usecase = new CreateOrderUseCaseImpl(findProductOutputPort, saveOrderOutputPort);
         Order order = usecase.execute(faker.random().nextLong(), List.of(new OrderItem(mockProduct(), 1, null)));
         assertNotNull(order);
         Mockito.verify(saveOrderOutputPort, Mockito.times(1)).save(Mockito.any());

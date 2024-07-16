@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponse;
-import br.com.eighteenburguers.adapters.inbound.controller.response.ErrorResponses;
-
 @ControllerAdvice
 public class HttpExceptionHandler extends ResponseEntityExceptionHandler {
     
