@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eighteen-burguers
+  labels:
+    app: eighteen-burguers
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: eighteen-burguers
+  template:
+    metadata:
+      labels:
+        app: eighteen-burguers
+    spec:
+      containers:
+        - name: eighteen-burguers-container
+          image: 18burguers-app:latest
+          ports:
+            - containerPort: 3000
