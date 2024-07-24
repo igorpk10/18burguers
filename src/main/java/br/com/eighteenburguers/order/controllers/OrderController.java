@@ -15,5 +15,7 @@ public interface OrderController {
     public OrderResponse findOrderById(Long id) throws BusinessException;
 
     public List<OrderResponse> findAllOrders();
+    
+    void paymentUpdate(Long orderId) throws BusinessException;
 
 }

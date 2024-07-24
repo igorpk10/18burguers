@@ -35,7 +35,7 @@ public class FindOrderServiceImpl implements FindOrderService {
 
     private Order mapOrder(OrderEntity entity) {
         List<OrderItem> items = entity.getItems().stream().map(this::mapOrderItem).collect(Collectors.toList());
-        return new Order(entity.getId(), entity.getCustomerId(), items, entity.getAmount(), entity.getStatus(), entity.getCreatedAt(), entity.getUpdatedAt());
+        return new Order(entity.getId(), entity.getCustomerId().toString(), items, entity.getAmount(), entity.getStatus(), entity.getCreatedAt(), entity.getUpdatedAt());
     }
 
     private OrderItem mapOrderItem(OrderItemEntity entity) {

@@ -11,6 +11,7 @@ import br.com.eighteenburguers.order.usecases.CheckoutOrderUseCase;
 import br.com.eighteenburguers.order.usecases.CreateOrderUseCase;
 import br.com.eighteenburguers.order.usecases.FindAllOrdersUseCase;
 import br.com.eighteenburguers.order.usecases.FindOrderByIdUseCase;
+import br.com.eighteenburguers.order.usecases.PaymentUpdateUseCase;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
 
 @Component
@@ -20,17 +21,19 @@ public class OrderControllerImpl implements OrderController {
     private CheckoutOrderUseCase checkoutOrderUseCase;
     private FindOrderByIdUseCase findOrderByIdUseCase;
     private FindAllOrdersUseCase findAllOrdersUseCase;
-
+    private PaymentUpdateUseCase paymentUpdateUseCase;
     private OrderMapper orderMapper;
 
-    public OrderControllerImpl(CreateOrderUseCase createOrderUseCase, CheckoutOrderUseCase checkoutOrderUseCase,
-            FindOrderByIdUseCase findOrderByIdUseCase, FindAllOrdersUseCase findAllOrdersUseCase,
-            OrderMapper orderMapper) {
-        this.createOrderUseCase = createOrderUseCase;
-        this.checkoutOrderUseCase = checkoutOrderUseCase;
-        this.findAllOrdersUseCase = findAllOrdersUseCase;
-        this.orderMapper = orderMapper;
-    }
+	public OrderControllerImpl(CreateOrderUseCase createOrderUseCase, CheckoutOrderUseCase checkoutOrderUseCase,
+			FindOrderByIdUseCase findOrderByIdUseCase, FindAllOrdersUseCase findAllOrdersUseCase,
+			PaymentUpdateUseCase paymentUpdateUseCase, OrderMapper orderMapper) {
+		this.createOrderUseCase = createOrderUseCase;
+		this.checkoutOrderUseCase = checkoutOrderUseCase;
+		this.findOrderByIdUseCase = findOrderByIdUseCase;
+		this.findAllOrdersUseCase = findAllOrdersUseCase;
+		this.paymentUpdateUseCase = paymentUpdateUseCase;
+		this.orderMapper = orderMapper;
+	}
 
     @Override
     public OrderResponse create(OrderRequest orderRequest) throws BusinessException {
@@ -54,5 +57,10 @@ public class OrderControllerImpl implements OrderController {
     public List<OrderResponse> findAllOrders() {
         var orders = findAllOrdersUseCase.execute();
         return orderMapper.toResponse(orders);
+    }
+    
+    @Override
+    public void paymentUpdate(Long orderId) throws BusinessException {
+    	paymentUpdateUseCase.execute(orderId);
     }
 }

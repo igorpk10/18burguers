@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,11 +43,13 @@ class CreateOrderUseCaseTest {
 
     @Test
     void shouldBeCreateOrder() throws BusinessException {
+    	final String orderId = UUID.randomUUID().toString();
+    	
         Mockito.when(findProductOutputPort.findByIds(Mockito.anyList())).thenReturn(mockProducts());
-        Mockito.when(saveOrderOutputPort.save(Mockito.any())).thenReturn(new Order(null, null));
+        Mockito.when(saveOrderOutputPort.save(Mockito.any())).thenReturn(new Order(orderId, null));
 
         CreateOrderUseCase usecase = new CreateOrderUseCaseImpl(findProductOutputPort, saveOrderOutputPort);
-        Order order = usecase.execute(faker.random().nextLong(), List.of(new OrderItem(mockProduct(), 1, null)));
+        Order order = usecase.execute(orderId, List.of(new OrderItem(mockProduct(), 1, null)));
         assertNotNull(order);
         Mockito.verify(saveOrderOutputPort, Mockito.times(1)).save(Mockito.any());
     }
