@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.eighteenburguers.order.dtos.OrderRequest;
 import br.com.eighteenburguers.order.dtos.OrderResponse;
+import br.com.eighteenburguers.order.entitys.OrderPaymentResponse;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
 
 public interface OrderController {
@@ -16,4 +17,5 @@ public interface OrderController {
 
     public List<OrderResponse> findAllOrders();
 
+    public OrderPaymentResponse checkPaymentStatus(Long orderId) throws BusinessException;
 }

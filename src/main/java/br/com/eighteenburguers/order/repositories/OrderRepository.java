@@ -1,11 +1,16 @@
 package br.com.eighteenburguers.order.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
 
 import br.com.eighteenburguers.order.entitys.OrderEntity;
 
-@Repository
-public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
+public interface OrderRepository {
     
+    List<OrderEntity> findAll();
+
+    Optional<OrderEntity> findById(Long id);
+
+    void save(OrderEntity entity);
+
 }

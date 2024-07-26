@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.eighteenburguers.order.dtos.OrderRequest;
 import br.com.eighteenburguers.order.dtos.OrderResponse;
+import br.com.eighteenburguers.order.entitys.OrderPaymentResponse;
 import br.com.eighteenburguers.order.mappers.OrderMapper;
 import br.com.eighteenburguers.order.usecases.CheckoutOrderUseCase;
 import br.com.eighteenburguers.order.usecases.CreateOrderUseCase;
@@ -55,4 +56,11 @@ public class OrderControllerImpl implements OrderController {
         var orders = findAllOrdersUseCase.execute();
         return orderMapper.toResponse(orders);
     }
+
+    @Override
+    public OrderPaymentResponse checkPaymentStatus(Long orderId) throws BusinessException {
+        var order = findOrderByIdUseCase.execute(orderId);
+        return new OrderPaymentResponse(order.getId(), order.getStatus().name());
+    }
+    
 }
