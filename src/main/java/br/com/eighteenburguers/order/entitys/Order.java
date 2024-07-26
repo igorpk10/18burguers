@@ -16,8 +16,9 @@ public class Order {
     private Instant updatedAt;
     private List<OrderItem> items;
 
-    public Order(Long id, Long customerId, List<OrderItem> items) {
+    public Order(Long id, String customerId, List<OrderItem> items) {
         this.id = id;
+        this.customerId = customerId;
         this.items = items;
     }
 

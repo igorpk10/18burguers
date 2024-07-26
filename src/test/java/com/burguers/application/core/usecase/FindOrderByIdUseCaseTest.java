@@ -3,7 +3,9 @@ package com.burguers.application.core.usecase;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +28,7 @@ class FindOrderByIdUseCaseTest {
 
     @Test
     void shouldBeFindById() throws BusinessException {
-        Mockito.when(findOrderOutputPort.findById(Mockito.anyLong())).thenReturn(Optional.of(new Order(null, null)));
+        Mockito.when(findOrderOutputPort.findById(Mockito.anyLong())).thenReturn(Optional.of(new Order(UUID.randomUUID().toString(), List.of())));
         FindOrderByIdUseCase usecase = new FindOrderByIdUseCaseImpl(findOrderOutputPort);
         assertNotNull(usecase.execute(1L));
     }

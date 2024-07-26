@@ -7,31 +7,29 @@ import org.springframework.stereotype.Component;
 import br.com.eighteenburguers.order.dtos.OrderRequest;
 import br.com.eighteenburguers.order.dtos.OrderResponse;
 import br.com.eighteenburguers.order.entitys.OrderPaymentResponse;
+import br.com.eighteenburguers.order.entitys.Order;
+import br.com.eighteenburguers.order.entitys.OrderStatus;
 import br.com.eighteenburguers.order.mappers.OrderMapper;
 import br.com.eighteenburguers.order.usecases.CheckoutOrderUseCase;
 import br.com.eighteenburguers.order.usecases.CreateOrderUseCase;
 import br.com.eighteenburguers.order.usecases.FindAllOrdersUseCase;
 import br.com.eighteenburguers.order.usecases.FindOrderByIdUseCase;
+import br.com.eighteenburguers.order.usecases.PaymentUpdateUseCase;
+import br.com.eighteenburguers.order.usecases.UpdateOrderStatus;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
+import lombok.AllArgsConstructor;
 
 @Component
+@AllArgsConstructor
 public class OrderControllerImpl implements OrderController {
 
     private CreateOrderUseCase createOrderUseCase;
     private CheckoutOrderUseCase checkoutOrderUseCase;
     private FindOrderByIdUseCase findOrderByIdUseCase;
     private FindAllOrdersUseCase findAllOrdersUseCase;
-
+    private PaymentUpdateUseCase paymentUpdateUseCase;
+    private UpdateOrderStatus updateOrderStatus;
     private OrderMapper orderMapper;
-
-    public OrderControllerImpl(CreateOrderUseCase createOrderUseCase, CheckoutOrderUseCase checkoutOrderUseCase,
-            FindOrderByIdUseCase findOrderByIdUseCase, FindAllOrdersUseCase findAllOrdersUseCase,
-            OrderMapper orderMapper) {
-        this.createOrderUseCase = createOrderUseCase;
-        this.checkoutOrderUseCase = checkoutOrderUseCase;
-        this.findAllOrdersUseCase = findAllOrdersUseCase;
-        this.orderMapper = orderMapper;
-    }
 
     @Override
     public OrderResponse create(OrderRequest orderRequest) throws BusinessException {
@@ -63,4 +61,16 @@ public class OrderControllerImpl implements OrderController {
         return new OrderPaymentResponse(order.getId(), order.getStatus().name());
     }
     
+}
+    
+    @Override
+    public void paymentUpdate(Long orderId) throws BusinessException {
+    	paymentUpdateUseCase.execute(orderId);
+    }
+    
+    @Override
+    public OrderResponse updateStatus(Long orderId, OrderStatus status) throws BusinessException {
+    	Order order = updateOrderStatus.execute(orderId, status);
+    	return orderMapper.toResponse(order);
+    }
 }
