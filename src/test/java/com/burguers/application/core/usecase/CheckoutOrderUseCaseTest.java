@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,6 +60,6 @@ class CheckoutOrderUseCaseTest {
     }
 
     Order mockOrder() {
-        return new Order(1L, List.of());
+        return new Order(UUID.randomUUID().toString(), List.of());
     }
 }

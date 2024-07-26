@@ -84,4 +84,15 @@ public class OrderAPI implements ApiV1 {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    
+    @GetMapping("/{orderId}/payment-update")
+    @ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+    public ResponseEntity<?> paymentUpdate(@PathVariable("orderId") Long orderId) {
+    	try {
+    		orderController.paymentUpdate(orderId);
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+    }
 }
