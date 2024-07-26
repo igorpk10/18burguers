@@ -60,9 +60,7 @@ public class OrderControllerImpl implements OrderController {
         var order = findOrderByIdUseCase.execute(orderId);
         return new OrderPaymentResponse(order.getId(), order.getStatus().name());
     }
-    
-}
-    
+        
     @Override
     public void paymentUpdate(Long orderId) throws BusinessException {
     	paymentUpdateUseCase.execute(orderId);
