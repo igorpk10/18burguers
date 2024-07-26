@@ -7,7 +7,11 @@ public enum OrderStatus {
     CREATED(1, "Pedido criado"), 
     AWAITING_PAYMENT(2, "Aguardando pagamento"),
     PAID(3, "Pago"), 
-    CANCELED(4, "Cancelado");
+    CANCELED(4, "Cancelado"),
+    IN_PREPARATION(5, "Em preparo"),
+    READY(6, "Pronto"),
+    AWAITING_WITHDRAWAL(7, "Aguardando retirada"),
+    COMPLETED(8, "Pedido concluido");
 
     private OrderStatus(Integer code, String description) {
         this.code = code;
