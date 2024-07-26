@@ -3,10 +3,12 @@ package br.com.eighteenburguers.order.repositories;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import br.com.eighteenburguers.order.datasource.OrderDataSource;
 import br.com.eighteenburguers.order.entitys.OrderEntity;
+import br.com.eighteenburguers.order.entitys.OrderStatus;
 
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
@@ -25,7 +27,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public List<OrderEntity> findAll() {
-        var response = orderDataSource.findAll();
+        var response = orderDataSource.findAllByStatusNotOrderByStatusAscCreatedAtAsc(OrderStatus.COMPLETED);
         return response;
     }
 
