@@ -17,8 +17,8 @@ public class SaveCustomerServiceImpl implements SaveCustomerService {
     @Override
     public Customer save(Customer customer) {
         CustomerEntity entity = mapper.toEntity(customer);
-        repository.save(entity);
-        return mapper.toCustomer(entity);
+        var saved = repository.save(entity);
+        return mapper.toCustomer(saved);
     }
     
 }

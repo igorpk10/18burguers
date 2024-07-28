@@ -77,23 +77,34 @@ public class OrderAPI implements ApiV1 {
 		}
 	}
 
-	@GetMapping
-	@ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class))))
-	public ResponseEntity<?> findOrders() {
-		try {
-			var orders = orderController.findAllOrders();
-			return ResponseEntity.status(HttpStatus.OK).body(orders);
-		} catch (Exception exception) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	}
+    @GetMapping
+    @ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class))))
+    public ResponseEntity<?> findOrders() {
+        try{
+            var orders = orderController.findAllOrders();
+            return ResponseEntity.status(HttpStatus.OK).body(orders);
+        }catch(Exception exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/payment-status/{orderId}")
+    @ApiResponse(responseCode = "200", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class))))
+    public ResponseEntity<?> checkPaymentStatus(@PathVariable("orderId") Long orderId) {
+        try {
+            var response = orderController.checkPaymentStatus(orderId);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch(Exception exception){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
 	@GetMapping("/{orderId}/payment-update")
 	@ApiResponse(responseCode = "204", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
 	public ResponseEntity<?> paymentUpdate(@PathVariable("orderId") Long orderId) {
 		try {
 			orderController.paymentUpdate(orderId);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
