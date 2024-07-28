@@ -7,15 +7,14 @@ import br.com.eighteenburguers.order.services.FindOrderService;
 
 public class FindOrderByIdUseCaseImpl implements FindOrderByIdUseCase {
 
-    private FindOrderService findOrderOutputPort;
+    private FindOrderService findOrderService;
 
-    public FindOrderByIdUseCaseImpl(FindOrderService findOrderOutputPort) {
-        this.findOrderOutputPort = findOrderOutputPort;
+    public FindOrderByIdUseCaseImpl(FindOrderService findOrderService) {
+        this.findOrderService = findOrderService;
     }
 
     @Override
     public Order execute(Long orderId) throws BusinessException {
-        return findOrderOutputPort.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        return findOrderService.findById(orderId).orElseThrow(OrderNotFoundException::new);
     }
-    
 }

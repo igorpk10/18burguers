@@ -12,13 +12,16 @@ import br.com.eighteenburguers.product.entitys.Product;
 import br.com.eighteenburguers.product.exceptions.BusinessException;
 import br.com.eighteenburguers.order.services.SaveOrderService;
 import br.com.eighteenburguers.product.services.FindProductService;
-import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
 public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
-    private final FindProductService findProductService;
-    private final SaveOrderService saveOrderService;
+    private FindProductService findProductService;
+    private SaveOrderService saveOrderService;
+
+    public CreateOrderUseCaseImpl(FindProductService findProductService, SaveOrderService saveOrderService) {
+        this.findProductService = findProductService;
+        this.saveOrderService = saveOrderService;
+    }
 
     @Override
     public Order execute(final String customerId, final List<OrderItem> items) throws BusinessException {

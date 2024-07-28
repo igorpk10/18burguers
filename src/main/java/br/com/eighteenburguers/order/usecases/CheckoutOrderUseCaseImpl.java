@@ -9,19 +9,19 @@ import br.com.eighteenburguers.order.services.SaveOrderService;
 
 public class CheckoutOrderUseCaseImpl implements CheckoutOrderUseCase {
 
-    private final SaveOrderService saveOrderOutputPort;
-    private final FindOrderService findOrderOutputPort;
+    private final SaveOrderService saveOrderService;
+    private final FindOrderService findOrderService;
 
-    public CheckoutOrderUseCaseImpl(SaveOrderService saveOrderOutputPort, FindOrderService findOrderOutputPort) {
-        this.saveOrderOutputPort = saveOrderOutputPort;
-        this.findOrderOutputPort = findOrderOutputPort;
+    public CheckoutOrderUseCaseImpl(SaveOrderService saveOrderService, FindOrderService findOrderService) {
+        this.saveOrderService = saveOrderService;
+        this.findOrderService = findOrderService;
     }
 
     @Override
     public void execute(Long orderId) throws BusinessException {
-        Order order = findOrderOutputPort.findById(orderId).orElseThrow(OrderNotFoundException::new);
+        Order order = findOrderService.findById(orderId).orElseThrow(OrderNotFoundException::new);
         order.setStatus(OrderStatus.PAID);
-        saveOrderOutputPort.save(order);
+        saveOrderService.save(order);
     }
     
 }

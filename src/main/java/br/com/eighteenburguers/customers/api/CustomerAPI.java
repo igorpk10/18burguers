@@ -32,15 +32,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/customers")
-public class CustomerAPI implements ApiV1{
+public class CustomerAPI implements ApiV1 {
 
     @Autowired
     private CustomerController customerController;
 
-
     @PostMapping
     @Transactional
-    @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,schema = @Schema(implementation = Customer.class)))
+    @ApiResponse(responseCode = "201", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = Customer.class)))
     public ResponseEntity<?> create(@RequestBody @Valid CustomerRequest request) {
         try {
             var customer = customerController.createCustomer(request);
@@ -66,5 +65,5 @@ public class CustomerAPI implements ApiV1{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-    
+
 }

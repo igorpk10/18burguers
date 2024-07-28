@@ -12,13 +12,15 @@ import br.com.eighteenburguers.order.entitys.OrderItemEntity;
 import br.com.eighteenburguers.order.entitys.Order;
 import br.com.eighteenburguers.order.entitys.OrderItem;
 import br.com.eighteenburguers.product.entitys.Product;
-import lombok.AllArgsConstructor;
 
 @Component
-@AllArgsConstructor
 public class FindOrderServiceImpl implements FindOrderService {
 
     private final OrderRepository repository;
+
+    public FindOrderServiceImpl(OrderRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Optional<Order> findById(Long id) {

@@ -7,15 +7,15 @@ import br.com.eighteenburguers.product.services.FindProductService;
 
 public class FindProductsUseCaseImpl implements br.com.eighteenburguers.product.usecase.FindProductsUseCase {
 
-    private final FindProductService findProductOutputPort;
+    private final FindProductService findProductService;
 
-    public FindProductsUseCaseImpl(FindProductService findProductOutputPort) {
-        this.findProductOutputPort = findProductOutputPort;
+    public FindProductsUseCaseImpl(FindProductService findProductService) {
+        this.findProductService = findProductService;
     }
 
     @Override
     public List<Product> execute() {
-        return findProductOutputPort.findAll();
+        return findProductService.findAll();
     }
     
 }

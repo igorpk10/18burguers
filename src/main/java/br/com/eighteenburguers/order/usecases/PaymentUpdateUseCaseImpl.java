@@ -12,24 +12,24 @@ import br.com.eighteenburguers.product.exceptions.OrderNotFoundException;
 
 public class PaymentUpdateUseCaseImpl implements PaymentUpdateUseCase {
 
-    private final SaveOrderService saveOrderOutputPort;
-    private final FindOrderService findOrderOutputPort;
+    private final SaveOrderService saveOrderService;
+    private final FindOrderService findOrderService;
     private final PaymentService paymentService;
     
-	public PaymentUpdateUseCaseImpl(SaveOrderService saveOrderOutputPort, FindOrderService findOrderOutputPort,
+	public PaymentUpdateUseCaseImpl(SaveOrderService saveOrderService, FindOrderService findOrderService,
 			PaymentService paymentService) {
-		this.saveOrderOutputPort = saveOrderOutputPort;
-		this.findOrderOutputPort = findOrderOutputPort;
+		this.saveOrderService = saveOrderService;
+		this.findOrderService = findOrderService;
 		this.paymentService = paymentService;
 	}
 	
 	@Override
 	public void execute(Long orderId) throws BusinessException {
-		Order order = findOrderOutputPort.findById(orderId).orElseThrow(OrderNotFoundException::new);
+		Order order = findOrderService.findById(orderId).orElseThrow(OrderNotFoundException::new);
 		Payment payment = paymentService.check(orderId);
 		OrderStatus orderStatus = getStatusFromPayment(payment.getStatus());
 		order.setStatus(orderStatus);
-		saveOrderOutputPort.save(order);
+		saveOrderService.save(order);
 	}
 
 	private OrderStatus getStatusFromPayment(PaymentStatus status) {
@@ -56,7 +56,4 @@ public class PaymentUpdateUseCaseImpl implements PaymentUpdateUseCase {
 			return OrderStatus.AWAITING_PAYMENT;
 		}
 	}
-
-
-
 }

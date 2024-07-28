@@ -6,12 +6,12 @@ import br.com.eighteenburguers.product.services.CreateProductService;
 
 public class CreateProductUseCaseImpl implements br.com.eighteenburguers.product.usecase.CreateProductUseCase {
 
-    private final CreateProductService createProductOutputPort;
+    private final CreateProductService createProductService;
 
     public CreateProductUseCaseImpl(
-        CreateProductService createProductOutputPort) {
+        CreateProductService createProductService) {
             
-        this.createProductOutputPort = createProductOutputPort;
+        this.createProductService = createProductService;
     }
 
     @Override
@@ -22,6 +22,6 @@ public class CreateProductUseCaseImpl implements br.com.eighteenburguers.product
         //     throw new ProductAlreadyExistsException();
         // }
 
-        return createProductOutputPort.insert(product);
+        return createProductService.insert(product);
     }
 }

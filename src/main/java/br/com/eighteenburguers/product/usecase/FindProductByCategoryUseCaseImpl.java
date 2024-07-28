@@ -8,15 +8,15 @@ import java.util.List;
 
 public class FindProductByCategoryUseCaseImpl implements br.com.eighteenburguers.product.usecase.FindProductByCategoryUseCase {
 
-    private final FindProductByCategoryService findProductByCategoryOutputPort;
+    private final FindProductByCategoryService findProductByCategoryService;
 
-    public FindProductByCategoryUseCaseImpl(FindProductByCategoryService findProductByCategoryOutputPort) {
-        this.findProductByCategoryOutputPort = findProductByCategoryOutputPort;
+    public FindProductByCategoryUseCaseImpl(FindProductByCategoryService findProductByCategoryService) {
+        this.findProductByCategoryService = findProductByCategoryService;
     }
 
     @Override
     public List<Product> find(int codigo) throws BusinessException {
-        List<Product> productList = findProductByCategoryOutputPort.find(codigo);
+        List<Product> productList = findProductByCategoryService.find(codigo);
         return productList;
     }
 }

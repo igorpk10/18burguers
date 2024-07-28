@@ -7,14 +7,14 @@ import br.com.eighteenburguers.product.exceptions.ProductNotExistsException;
 
 public class FindProductByIdUseCaseImpl implements br.com.eighteenburguers.product.usecase.FindProductByIdUseCase {
 
-    private final FindProductByIdService findProductByIdOutputPort;
+    private final FindProductByIdService findProductByIdService;
 
-    public FindProductByIdUseCaseImpl(FindProductByIdService findProductByIdOutputPort) {
-        this.findProductByIdOutputPort = findProductByIdOutputPort;
+    public FindProductByIdUseCaseImpl(FindProductByIdService findProductByIdService) {
+        this.findProductByIdService = findProductByIdService;
     }
 
     @Override
     public Product find(Long id) throws BusinessException {
-        return findProductByIdOutputPort.find(id).orElseThrow(ProductNotExistsException::new);
+        return findProductByIdService.find(id).orElseThrow(ProductNotExistsException::new);
     }
 }

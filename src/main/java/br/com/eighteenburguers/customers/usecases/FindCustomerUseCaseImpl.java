@@ -7,20 +7,20 @@ import br.com.eighteenburguers.customers.exceptions.CustomerNotFound;
 
 public class FindCustomerUseCaseImpl implements FindCustomerUseCase {
 
-    private FindCustomerByDocumentService findByFederalIdCustomerAdapterPort;
+    private FindCustomerByDocumentService findCustomerByDocumentService;
 
-    public FindCustomerUseCaseImpl(FindCustomerByDocumentService findByFederalIdCustomerAdapterPort){
-        this.findByFederalIdCustomerAdapterPort = findByFederalIdCustomerAdapterPort;
+    public FindCustomerUseCaseImpl(FindCustomerByDocumentService findCustomerByDocumentService){
+        this.findCustomerByDocumentService = findCustomerByDocumentService;
     }
 
     @Override
     public Customer execute(String id) throws BusinessException {
-        var customer = findByFederalIdCustomerAdapterPort.findByDocumentNumber(id);
+        var customer = findCustomerByDocumentService.findByDocumentNumber(id);
 
         if(customer == null){
             throw new CustomerNotFound();
         }
 
-        return findByFederalIdCustomerAdapterPort.findByDocumentNumber(id);
+        return findCustomerByDocumentService.findByDocumentNumber(id);
     }
 }

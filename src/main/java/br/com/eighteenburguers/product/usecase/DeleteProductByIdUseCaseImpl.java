@@ -7,18 +7,18 @@ import br.com.eighteenburguers.product.exceptions.ProductNotExistsException;
 
 public class DeleteProductByIdUseCaseImpl implements br.com.eighteenburguers.product.usecase.DeleteProductByIdUseCase {
 
-    private final DeleteProductByIdService deleteProductByIdOutputPort;
+    private final DeleteProductByIdService deleteProductByIdService;
 
-    private final FindProductByIdService findProductByIdOutputPort;
+    private final FindProductByIdService findProductByIdService;
 
-    public DeleteProductByIdUseCaseImpl(DeleteProductByIdService deleteProductByIdOutputPort, FindProductByIdService findProductByIdOutputPort) {
-        this.deleteProductByIdOutputPort = deleteProductByIdOutputPort;
-        this.findProductByIdOutputPort = findProductByIdOutputPort;
+    public DeleteProductByIdUseCaseImpl(DeleteProductByIdService deleteProductByIdService, FindProductByIdService findProductByIdService) {
+        this.deleteProductByIdService = deleteProductByIdService;
+        this.findProductByIdService = findProductByIdService;
     }
 
     @Override
     public void delete(Long id) throws BusinessException {
-        findProductByIdOutputPort.find(id).orElseThrow(ProductNotExistsException::new);
-        deleteProductByIdOutputPort.delete(id);
+        findProductByIdService.find(id).orElseThrow(ProductNotExistsException::new);
+        deleteProductByIdService.delete(id);
     }
 }

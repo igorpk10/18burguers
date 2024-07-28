@@ -19,56 +19,59 @@ import br.com.eighteenburguers.product.usecase.UpdateProductUseCase;
 @Component
 public class ProductControllerImpl implements ProductController {
 
-    private final CreateProductUseCase createProductInputPort;
+    private final CreateProductUseCase createProductUseCase;
 
-    private final UpdateProductUseCase updateProductInputPort;
+    private final UpdateProductUseCase updateProductUseCase;
 
-    private final FindProductByIdUseCase findProductByIdInputPort;
+    private final FindProductByIdUseCase findProductByIdUseCase;
 
-    private final FindProductByCategoryUseCase findProductByCategoryInputPort;
+    private final FindProductByCategoryUseCase findProductByCategoryUseCase;
 
-    private final DeleteProductByIdUseCase deleteProductByIdInputPort;
+    private final DeleteProductByIdUseCase deleteProductByIdUseCase;
 
-    private final FindProductsUseCase findProductsInputPort;
+    private final FindProductsUseCase findProductsUseCase;
 
     private final ProductMapper productMapper;
 
-    public ProductControllerImpl(CreateProductUseCase createProductInputPort, UpdateProductUseCase updateProductInputPort,
-            FindProductByIdUseCase findProductByIdInputPort,
-            FindProductByCategoryUseCase findProductByCategoryInputPort,
-            DeleteProductByIdUseCase deleteProductByIdInputPort, FindProductsUseCase findProductsInputPort,
+    public ProductControllerImpl(
+            CreateProductUseCase createProductUseCase,
+            UpdateProductUseCase updateProductUseCase,
+            FindProductByIdUseCase findProductByIdUseCase,
+            FindProductByCategoryUseCase findProductByCategoryUseCase,
+            DeleteProductByIdUseCase deleteProductByIdUseCase,
+            FindProductsUseCase findProductsUseCase,
             ProductMapper productMapper) {
-        this.createProductInputPort = createProductInputPort;
-        this.updateProductInputPort = updateProductInputPort;
-        this.findProductByIdInputPort = findProductByIdInputPort;
-        this.findProductByCategoryInputPort = findProductByCategoryInputPort;
-        this.deleteProductByIdInputPort = deleteProductByIdInputPort;
-        this.findProductsInputPort = findProductsInputPort;
+        this.createProductUseCase = createProductUseCase;
+        this.updateProductUseCase = updateProductUseCase;
+        this.findProductByIdUseCase = findProductByIdUseCase;
+        this.findProductByCategoryUseCase = findProductByCategoryUseCase;
+        this.deleteProductByIdUseCase = deleteProductByIdUseCase;
+        this.findProductsUseCase = findProductsUseCase;
         this.productMapper = productMapper;
     }
 
     @Override
     public ProductResponse insert(ProductRequest productRequest) throws BusinessException {
         var product = productMapper.toProduct(productRequest);
-        var productPersisted = createProductInputPort.insert(product);
+        var productPersisted = createProductUseCase.insert(product);
         return productMapper.toProductResponse(productPersisted);
     }
 
     @Override
     public List<ProductResponse> fetchAll() {
-        var productList = findProductsInputPort.execute();
+        var productList = findProductsUseCase.execute();
         return productMapper.toListResponse(productList);
     }
 
     @Override
     public ProductResponse fetchProductById(Long id) throws BusinessException {
-        var product = findProductByIdInputPort.find(id);
+        var product = findProductByIdUseCase.find(id);
         return productMapper.toProductResponse(product);
     }
 
     @Override
     public List<ProductResponse> fetchByCategory(Integer categoryId) throws BusinessException {
-        var productList = findProductByCategoryInputPort.find(categoryId);
+        var productList = findProductByCategoryUseCase.find(categoryId);
         return productMapper.toListResponse(productList);
     }
 
@@ -76,12 +79,12 @@ public class ProductControllerImpl implements ProductController {
     public ProductResponse editProduct(Long id, ProductRequest productRequest) throws BusinessException {
         Product product = productMapper.toProduct(productRequest);
         product.setId(id);
-        updateProductInputPort.update(product);
+        updateProductUseCase.update(product);
         return productMapper.toProductResponse(product);
     }
 
     @Override
     public void deleteProduct(Long id) throws BusinessException {
-        deleteProductByIdInputPort.delete(id);
+        deleteProductByIdUseCase.delete(id);
     }
 }

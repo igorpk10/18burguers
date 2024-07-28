@@ -8,24 +8,24 @@ import br.com.eighteenburguers.customers.exceptions.CustomerAlreadyExistsExcepti
 
 public class CreateCustomerUseCaseImpl implements CreateCustomerUseCase {
 
-    private final FindCustomerByDocumentService findCustomerAdapterPort;
-    private final SaveCustomerService saveCustomerAdapterPort;
+    private final FindCustomerByDocumentService findCustomerByDocumentService;
+    private final SaveCustomerService saveCustomerService;
 
-    public CreateCustomerUseCaseImpl(FindCustomerByDocumentService findCustomerAdapterPort,
-                                     SaveCustomerService saveCustomerAdapterPort) {
-        this.findCustomerAdapterPort = findCustomerAdapterPort;
-        this.saveCustomerAdapterPort = saveCustomerAdapterPort;
+    public CreateCustomerUseCaseImpl(FindCustomerByDocumentService findCustomerByDocumentService,
+                                     SaveCustomerService saveCustomerService) {
+        this.findCustomerByDocumentService = findCustomerByDocumentService;
+        this.saveCustomerService = saveCustomerService;
     }
 
     @Override
     public Customer execute(Customer customer) throws BusinessException {
-        var createdCustomer = findCustomerAdapterPort.findByDocumentNumber(customer.getDocument().getNumber());
+        var createdCustomer = findCustomerByDocumentService.findByDocumentNumber(customer.getDocument().getNumber());
 
         if (createdCustomer != null) {
             throw new CustomerAlreadyExistsException();
         }
 
-        return saveCustomerAdapterPort.save(customer);
+        return saveCustomerService.save(customer);
     }
 
 }

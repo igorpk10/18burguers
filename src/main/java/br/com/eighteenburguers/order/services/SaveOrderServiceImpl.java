@@ -6,14 +6,17 @@ import br.com.eighteenburguers.order.repositories.OrderRepository;
 import br.com.eighteenburguers.order.entitys.OrderEntity;
 import br.com.eighteenburguers.order.mappers.OrderEntityMapper;
 import br.com.eighteenburguers.order.entitys.Order;
-import lombok.AllArgsConstructor;
 
 @Component
-@AllArgsConstructor
 public class SaveOrderServiceImpl implements SaveOrderService {
 
-    private final OrderRepository repository;
-    private final OrderEntityMapper mapper;
+    private OrderRepository repository;
+    private OrderEntityMapper mapper;
+
+    public SaveOrderServiceImpl(OrderRepository repository, OrderEntityMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public Order save(Order order) {

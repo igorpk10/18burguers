@@ -7,15 +7,15 @@ import br.com.eighteenburguers.order.services.FindOrderService;
 
 public class FindAllOrdersUseCaseImpl implements FindAllOrdersUseCase {
 
-    private final FindOrderService findOrderOutputPort;
+    private final FindOrderService findOrderService;
 
-    public FindAllOrdersUseCaseImpl(FindOrderService findOrderOutputPort) {
-        this.findOrderOutputPort = findOrderOutputPort;
+    public FindAllOrdersUseCaseImpl(FindOrderService findOrderService) {
+        this.findOrderService = findOrderService;
     }
 
     @Override
     public List<Order> execute() {
-        return findOrderOutputPort.findAll();
+        return findOrderService.findAll();
     }
     
 }

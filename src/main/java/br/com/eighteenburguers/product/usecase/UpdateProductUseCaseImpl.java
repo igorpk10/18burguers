@@ -8,19 +8,18 @@ import br.com.eighteenburguers.product.exceptions.ProductNotExistsException;
 
 public class UpdateProductUseCaseImpl implements br.com.eighteenburguers.product.usecase.UpdateProductUseCase {
 
-    private final FindProductByIdService findProductByIdOutputPort;
+    private final FindProductByIdService findProductByIdService;
 
-    private final UpdateProductService updateProductOutputPort;
+    private final UpdateProductService updateProductService;
 
-    public UpdateProductUseCaseImpl(FindProductByIdService findProductByIdOutputPort, UpdateProductService updateProductOutputPort) {
-        this.findProductByIdOutputPort = findProductByIdOutputPort;
-        this.updateProductOutputPort = updateProductOutputPort;
+    public UpdateProductUseCaseImpl(FindProductByIdService findProductByIdService, UpdateProductService updateProductService) {
+        this.findProductByIdService = findProductByIdService;
+        this.updateProductService = updateProductService;
     }
 
     @Override
     public void update(Product product) throws BusinessException {
-        Product createdProduct = findProductByIdOutputPort.find(product.getId()).orElseThrow(ProductNotExistsException::new);
-
-        updateProductOutputPort.update(product);
+        Product createdProduct = findProductByIdService.find(product.getId()).orElseThrow(ProductNotExistsException::new);
+        updateProductService.update(product);
     }
 }
