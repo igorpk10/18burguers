@@ -1,20 +1,15 @@
 openapi: 3.0.1
 info:
-  title: Swagger Eighteen Burguers
-  description: Sistema de lanchonete para o tech challenge da Pós Tech FIAP + Alura
-  version: 1.0.0
+  title: OpenAPI definition
+  version: v0
 servers:
-  - url: http://localhost:8080/api/v1
-tags:
-  - name: Eighteen Burguers
-    description: Sistema de lanchonete
+  - url: http://127.0.0.1:51660/api/v1
+    description: Generated server url
 paths:
   /products/{id}:
     get:
       tags:
         - Products
-      summary: Busca um produto pelo seu Id.
-      description: "Através deste endpoint é possível buscar um produto pelo seu Id"
       operationId: findById
       parameters:
         - name: id
@@ -30,30 +25,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
     put:
       tags:
         - Products
-      summary: Edita um produto existente.
-      description: "Através deste endpoint é possível editar um produto"
       operationId: update
       parameters:
         - name: id
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
@@ -65,35 +47,41 @@ paths:
           description: No Content
           content:
             application/json: {}
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
     delete:
       tags:
         - Products
-      summary: Remove um produto pelo seu Id.
-      description: "Através deste endpoint é possível remover um produto pelo seu Id"
       operationId: delete
       parameters:
         - name: id
           in: path
           required: true
           schema:
-            type: string
+            type: integer
+            format: int64
       responses:
         '204':
           description: No Content
           content:
             application/json: {}
+  /orders/{orderId}/status:
+    put:
+      tags:
+        - Orders
+      operationId: updateStatus
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderUpdateStatusRequest'
+        required: true
+      responses:
         '400':
           description: Bad Request
           content:
@@ -107,11 +95,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponses'
   /products:
+    get:
+      tags:
+        - Products
+      operationId: list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
     post:
       tags:
         - Products
-      summary: Adiciona um novo produto.
-      description: "Através deste endpoint é possível criar um novo produto"
       operationId: insert
       requestBody:
         content:
@@ -126,25 +125,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
   /orders:
     get:
       tags:
         - Orders
-      summary: Busca uma lista de pedidos.
-      description: "Através deste endpoint é possível buscar uma lista de pedidos"
-      operationId: list
+      operationId: findOrders
       responses:
         '200':
           description: OK
@@ -169,8 +154,6 @@ paths:
     post:
       tags:
         - Orders
-      summary: Adiciona um novo pedido.
-      description: "Através deste endpoint é possível criar um novo pedido"
       operationId: create
       requestBody:
         content:
@@ -201,8 +184,6 @@ paths:
     post:
       tags:
         - Orders
-      summary: Realiza checkout de um pedido.
-      description: "Através deste endpoint é possível realizar checkout de um pedido"
       operationId: checkout
       parameters:
         - name: orderId
@@ -232,8 +213,6 @@ paths:
     post:
       tags:
         - Customers
-      summary: Adiciona um novo cliente.
-      description: "Através deste endpoint é possível criar um novo cliente"
       operationId: create_1
       requestBody:
         content:
@@ -264,8 +243,6 @@ paths:
     get:
       tags:
         - Products
-      summary: Busca um produto pelo seu Id.
-      description: "Através deste endpoint é possível buscar um produto pelo seu Id"
       operationId: findByCategory
       parameters:
         - name: categoryId
@@ -282,24 +259,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProductResponse'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponses'
   /orders/{orderId}:
     get:
       tags:
         - Orders
-      summary: Busca um pedido pelo seu Id.
-      description: "Através deste endpoint é possível buscar um pedido pelo seu id"
       operationId: findById_1
       parameters:
         - name: orderId
@@ -327,12 +290,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponses'
+  /orders/{orderId}/payment-update:
+    get:
+      tags:
+        - Orders
+      operationId: paymentUpdate
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+  /orders/payment-status/{orderId}:
+    get:
+      tags:
+        - Orders
+      operationId: checkPaymentStatus
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponses'
   /health:
     get:
       tags:
         - health-controller
-      summary: Verifica disponibilidade da aplicação.
-      description: "Através deste endpoint é possível verificar a disponibilidade da aplicação"
       operationId: ping
       responses:
         '200':
@@ -345,8 +368,6 @@ paths:
     get:
       tags:
         - Customers
-      summary: Busca um cliente pelo seu CPF.
-      description: "Através deste endpoint é possível buscar um cliente pelo seu número de CPF"
       operationId: search
       parameters:
         - name: cpf
@@ -391,6 +412,20 @@ components:
           type: string
         image:
           type: string
+    OrderUpdateStatusRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - CREATED
+            - AWAITING_PAYMENT
+            - PAID
+            - CANCELED
+            - IN_PREPARATION
+            - READY
+            - AWAITING_WITHDRAWAL
+            - COMPLETED
     ErrorResponse:
       type: object
       properties:
@@ -442,8 +477,7 @@ components:
       type: object
       properties:
         customerId:
-          type: integer
-          format: int64
+          type: string
         items:
           type: array
           items:
@@ -477,8 +511,7 @@ components:
           type: integer
           format: int64
         customerId:
-          type: integer
-          format: int64
+          type: string
         amount:
           type: number
         status:
@@ -488,6 +521,10 @@ components:
             - AWAITING_PAYMENT
             - PAID
             - CANCELED
+            - IN_PREPARATION
+            - READY
+            - AWAITING_WITHDRAWAL
+            - COMPLETED
         statusDescription:
           type: string
         items:
