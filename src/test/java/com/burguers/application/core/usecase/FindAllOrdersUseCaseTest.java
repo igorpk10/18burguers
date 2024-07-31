@@ -10,20 +10,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import br.com.eighteenburguers.core.ports.inbound.order.FindAllOrdersInputPort;
-import br.com.eighteenburguers.core.ports.outbound.order.FindOrderOutputPort;
-import br.com.eighteenburguers.core.usecase.order.FindAllOrdersUseCase;
+import br.com.eighteenburguers.order.usecases.FindAllOrdersUseCase;
+import br.com.eighteenburguers.order.services.FindOrderService;
+import br.com.eighteenburguers.order.usecases.FindAllOrdersUseCaseImpl;
 
 @ExtendWith(MockitoExtension.class)
 class FindAllOrdersUseCaseTest {
     
     @Mock
-    FindOrderOutputPort findOrderOutputPort;
+    FindOrderService findOrderOutputPort;
 
     @Test
     void shouldBeFindOrder() {
         Mockito.when(findOrderOutputPort.findAll()).thenReturn(List.of());
-        FindAllOrdersInputPort usecase = new FindAllOrdersUseCase(findOrderOutputPort);
+        FindAllOrdersUseCase usecase = new FindAllOrdersUseCaseImpl(findOrderOutputPort);
         assertNotNull(usecase.execute());
     }
 }

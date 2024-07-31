@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eighteen-burguers
+  labels:
+    app: eighteen-burguers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eighteen-burguers
+  template:
+    metadata:
+      labels:
+        app: eighteen-burguers
+    spec:
+      containers:
+        - name: eighteen-burguers
+          image: 18burguers-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: eighteen-burguers-secret
+            - configMapRef:
+                name: eighteen-burguers-cm
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8080
+            initialDelaySeconds: 240
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health
+              port: 8080
+            initialDelaySeconds: 240
+            periodSeconds: 3

@@ -1,16 +1,9 @@
 package com.burguers.application.core.usecase;
 
-import br.com.eighteenburguers.core.domain.Product;
-import br.com.eighteenburguers.core.enums.Category;
-import br.com.eighteenburguers.core.exceptions.BusinessException;
-import br.com.eighteenburguers.core.ports.inbound.product.CreateProductInputPort;
-import br.com.eighteenburguers.core.ports.outbound.product.CreateProductOutputPort;
-import br.com.eighteenburguers.core.ports.outbound.product.FindProductByIdOutputPort;
-import br.com.eighteenburguers.core.usecase.product.CreateProductUseCase;
-import br.com.eighteenburguers.core.usecase.product.exceptions.ProductAlreadyExistsException;
+import br.com.eighteenburguers.product.services.CreateProductService;
+import br.com.eighteenburguers.product.services.FindProductByIdService;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,13 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import java.io.File;
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
@@ -32,10 +20,10 @@ import static org.mockito.Mockito.*;
 public class CreateProductUseCaseTest {
 
     @Mock
-    FindProductByIdOutputPort findProductByIdOutputPort;
+    FindProductByIdService findProductByIdOutputPort;
 
     @Mock
-    CreateProductOutputPort createProductOutputPort;
+    CreateProductService createProductOutputPort;
 
     Faker faker;
 

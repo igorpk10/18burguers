@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,22 +18,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.github.javafaker.Faker;
 
-import br.com.eighteenburguers.core.domain.Order;
-import br.com.eighteenburguers.core.domain.OrderStatus;
-import br.com.eighteenburguers.core.exceptions.OrderNotFoundException;
-import br.com.eighteenburguers.core.ports.inbound.order.CheckoutOrderInputPort;
-import br.com.eighteenburguers.core.ports.outbound.order.FindOrderOutputPort;
-import br.com.eighteenburguers.core.ports.outbound.order.SaveOrderOutputPort;
-import br.com.eighteenburguers.core.usecase.order.CheckoutOrderUseCase;
+import br.com.eighteenburguers.order.entitys.Order;
+import br.com.eighteenburguers.order.entitys.OrderStatus;
+import br.com.eighteenburguers.product.exceptions.OrderNotFoundException;
+import br.com.eighteenburguers.order.usecases.CheckoutOrderUseCase;
+import br.com.eighteenburguers.order.services.FindOrderService;
+import br.com.eighteenburguers.order.services.SaveOrderService;
+import br.com.eighteenburguers.order.usecases.CheckoutOrderUseCaseImpl;
 
 @ExtendWith(MockitoExtension.class)
 class CheckoutOrderUseCaseTest {
     
     @Mock
-    SaveOrderOutputPort saveOrderOutputPort;
+    SaveOrderService saveOrderOutputPort;
     
     @Mock
-    FindOrderOutputPort findOrderOutputPort;
+    FindOrderService findOrderOutputPort;
 
     @Captor
     ArgumentCaptor<Order> captor;
@@ -40,7 +41,7 @@ class CheckoutOrderUseCaseTest {
     @Test
     void shouldBeCheckoutOrder(){
         Mockito.when(findOrderOutputPort.findById(Mockito.anyLong())).thenReturn(Optional.of(mockOrder()));
-        CheckoutOrderInputPort usecase = new CheckoutOrderUseCase(saveOrderOutputPort, findOrderOutputPort);
+        CheckoutOrderUseCase usecase = new CheckoutOrderUseCaseImpl(saveOrderOutputPort, findOrderOutputPort);
         assertDoesNotThrow(() -> usecase.execute(Faker.instance().random().nextLong()));
 
         Mockito.verify(findOrderOutputPort, Mockito.times(1)).findById(Mockito.anyLong());
@@ -51,7 +52,7 @@ class CheckoutOrderUseCaseTest {
     @Test
     void shouldBeNotCheckoutBecauseDoesNotExists() {
         Mockito.when(findOrderOutputPort.findById(Mockito.anyLong())).thenReturn(Optional.empty());
-        CheckoutOrderInputPort usecase = new CheckoutOrderUseCase(saveOrderOutputPort, findOrderOutputPort);
+        CheckoutOrderUseCase usecase = new CheckoutOrderUseCaseImpl(saveOrderOutputPort, findOrderOutputPort);
         assertThrows(OrderNotFoundException.class, () -> usecase.execute(Faker.instance().random().nextLong()));
 
         Mockito.verify(findOrderOutputPort, Mockito.times(1)).findById(Mockito.anyLong());
@@ -59,6 +60,6 @@ class CheckoutOrderUseCaseTest {
     }
 
     Order mockOrder() {
-        return new Order(1L, List.of());
+        return new Order(UUID.randomUUID().toString(), List.of());
     }
 }
